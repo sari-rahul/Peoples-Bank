@@ -25,11 +25,52 @@ def current_date():
     Generates the current date and converts it to a string and returns it.
 
     """
-    #Get the current date
+    # Get the current date
     current_date = datetime.now().date()
-    #Converts the current date into a string
+    # Converts the current date into a string
     string_date = current_date.strftime("%x")
     return (string_date)
+
+
+class customer:
+    """
+    Creates a user class to store user information.
+    """
+    def __init__(self, username, pin):
+        self.username = username
+        self.pin = pin
+
+
+def withdraw_amount(username, pin):
+    """
+    Withdraws the amount from the account after validation
+
+    """
+    print("Please enter the amount you want to deposit ")
+    withdraw = input(">>")
+    # Gets the user's name from the database
+    gets_name = PersonalDetails.find(username, in_column=1)
+    # Gets the current balance amount in the account
+    gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
+
+    if int(withdraw) > int(gets_balance):
+        print("\nINSUFFICIENT BALANCE...")
+        withdraw_amount(username, pin)
+    elif int(withdraw) == 0 or int(withdraw)< 0: 
+        print("\nINPUT INVALID....")
+        withdraw_amount(username, pin)
+    else:
+        print("\nWITHDRAWING THE AMOUNT FROM ACCOUNT.....")
+        user_sheet = SHEET.worksheet(username)
+        date = current_date()
+        deposit = 0
+        new_bal = int(gets_balance)-int(withdraw)
+        updation = []
+        updation = [date, deposit, withdraw, new_bal]
+        # appends the new data to the worksheet generated
+        user_sheet.append_row(updation)
+        print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
+        account_welcome_page(username, pin)
 
 
 def check_balance(username, pin):
@@ -43,17 +84,23 @@ def check_balance(username, pin):
     # Gets the current balance amount in the account
     gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
     print(f"\nYOUR CURRENT BALANCE IS {gets_balance} EURO")
-    #Calls the welcome page so that the user can select anothe function
+    # Calls the welcome page so that the user can select anothe function
+    account_welcome_page(username, pin)
+    
+
+def know_pin(username):
+    """
+    Shows the secret PIN to the user
+
+    """
+    # Gets the user's name from the database
+    gets_name = PersonalDetails.find(username, in_column=1)
+    # Gets the PIN
+    pin = PersonalDetails.cell(gets_name.row, gets_name.col + 1).value
+    print(f"\nYour PIN is {pin}")
+    # Again calls the welcome page
     account_welcome_page(username, pin)
 
-class customer:
-    """
-    Creates a user class to store user information.
-    """
-    def __init__(self, username, pin):
-        self.username = username
-        self.pin = pin
-        
 
 def deposit_amount(username, pin):
     """
@@ -69,7 +116,7 @@ def deposit_amount(username, pin):
     gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
     # The new balance is the sum of old balance and the present deposit amount
     new_bal = int(gets_balance) + int(deposit)
-    #The complete row of information of the selected user is taken
+    # The complete row of information of the selected user is taken
     row_values = PersonalDetails.row_values(gets_name.row)
     # The last two values are edited 
     row_values[-1] = new_bal
@@ -77,16 +124,17 @@ def deposit_amount(username, pin):
     PersonalDetails.delete_rows(gets_name.row)
     # The new row with updated information is appended
     PersonalDetails.append_row(row_values)
-
+    # Calls the  worksheet with the new user
     user_sheet = SHEET.worksheet(username)
     date = current_date()
     withdraw = 0
     updation = []
     updation = [date, deposit, withdraw, new_bal]
+    # appends the new data to the worksheet generated
     user_sheet.append_row(updation)
     
     print(f"\n{deposit} Euro has been deposited!!! ")
-    #Calls the welcome page so that the user can select anothe function
+    # Calls the welcome page so that the user can select anothe function
     account_welcome_page(username, pin)
 
 
@@ -101,7 +149,7 @@ def generate_pin():
 
 
 def account_welcome_page(username, pin):
-    #Displays the various function that can be done by the user 
+    # Displays the various function that can be done by the user 
     print(f"\n\nWelcome {username}!!!")
     print("\nSELECT THE SERVICE YOU WANT TO CHOOSE..")
     print("\n 1.Deposit Amount ")
@@ -123,7 +171,7 @@ def account_welcome_page(username, pin):
             withdraw_amount()
             break
         elif selected_option == "4":
-            know_pin()
+            know_pin(username)
             break
         elif selected_option == "5":
             delete_account()
@@ -161,23 +209,23 @@ def create_new_account():
     # compares the user given username with the database and avoids repeatition
     if PersonalDetails.find(username, in_column=1) is not None:
         print(f"{username} username is unavailable .Please try a new username")
-    #Checks if the username begins with a number
+    # Checks if the username begins with a number
     elif not username[0].isalpha():
         print("Username should not begin with number")
-    #Checks if the username has more than the required number of characters
+    # Checks if the username has more than the required number of characters
     elif len(username) < 3 and len(username) > 11:
         print("The username should have minimum 4 characters and maximum 10 characters")
-    #Checks if the username begins with a space
+    # Checks if the username begins with a space
     elif any(char.isspace() for char in username):
         print(f"{username} is invalid, no white spaces are allowed")
-    #Checks if the username has the required number of characters
+    # Checks if the username has the required number of characters
     elif len(username) > 3 and len(username) < 11:
         print("\nCREATING ACCOUNT.PLEASE WAIT A MINUTE... ")
         pin = generate_pin()
         
         balance = "00"
         date = current_date()
-        #Makes a new customer object of the class customer
+        # Makes a new customer object of the class customer
         n_cust = customer(username, pin)
         customer_info = [n_cust.username, n_cust.pin, date, balance]
         PersonalDetails.append_row(customer_info)
@@ -228,4 +276,42 @@ def main():
     welcome()
 
 
-main()
+# main()
+
+username = "Rahul"
+pin = 1234
+
+
+def withdraw_amount(username, pin):
+    """
+    Withdraws the amount from the account after validation
+
+    """
+    print("Please enter the amount you want to deposit ")
+    withdraw = input(">>")
+    # Gets the user's name from the database
+    gets_name = PersonalDetails.find(username, in_column=1)
+    # Gets the current balance amount in the account
+    gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
+
+    if int(withdraw) > int(gets_balance):
+        print("\nINSUFFICIENT BALANCE...")
+        withdraw_amount(username, pin)
+    elif int(withdraw) == 0 or int(withdraw)< 0: 
+        print("\nINPUT INVALID....")
+        withdraw_amount(username, pin)
+    else:
+        print("\nWITHDRAWING THE AMOUNT FROM ACCOUNT.....")
+        user_sheet = SHEET.worksheet(username)
+        date = current_date()
+        deposit = 0
+        new_bal = int(gets_balance)-int(withdraw)
+        updation = []
+        updation = [date, deposit, withdraw, new_bal]
+        # appends the new data to the worksheet generated
+        user_sheet.append_row(updation)
+        print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
+        account_welcome_page(username, pin)
+
+
+withdraw_amount(username, pin)
