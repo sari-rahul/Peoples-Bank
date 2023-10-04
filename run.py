@@ -4,7 +4,7 @@ from pprint import pprint
 import random
 import os
 import sys
-from datetime import date
+from datetime import datetime ,date
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -18,6 +18,48 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('PeoplesBank')
 
 PersonalDetails = SHEET.worksheet("PersonalDetails")
+
+
+def current_date():
+    return datetime.now()
+
+def check_balance(username, pin):
+    """
+    Checks the current balance amount in the users account
+    
+    """
+    print("\n CHECKING BALANCE.....")
+    # Gets the user's name from the database
+    gets_name = PersonalDetails.find(username, in_column=1)
+    # Gets the current balance amount in the account
+    gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 4).value
+    print(f"\nYOUR CURRENT BALANCE IS {gets_balance} Euro")
+
+
+def deposit_amount(username, pin):
+    """
+    Deposits the given amount into the account after validation
+
+    """
+    print("Please enter the amount you want to deposit ")
+    deposit = input(">>")
+    # Gets the user's name from the database
+    gets_name = PersonalDetails.find(username, in_column=1)
+    # Gets the current balance amount in the account
+    gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 4).value
+    #The new updated amount is the current deposit amount
+    new_upd_amt = deposit
+    # The new balance is the sum of old balance and the present deposit amount
+    new_bal = int(gets_balance) + int(deposit)
+    #The complete row of information of the selected user is taken
+    row_values = PersonalDetails.row_values(gets_name.row)
+    # The last two values are edited 
+    row_values[-1] = new_bal
+    row_values[-2] = new_upd_amt
+    # The present Row is deleted
+    PersonalDetails.delete_rows(gets_name.row)
+    # The new row with updated information is appended
+    PersonalDetails.append_row(row_values)
 
 
 def generate_pin():
@@ -37,52 +79,43 @@ class customer:
     """
     def __init__(self, username, pin):
         self.username = username
-        self.pin = pin
-
-
-def deposit_amount(username, pin):
-    """
-    Deposits the given amount into the account after validation
-
-    """
-    gets_name =  PersonalDetails.find(username, in_column=1)
-    print(gets_name)   
+        self.pin = pin  
 
 
 def account_welcome_page(username, pin):
     print(f"Welcome{ username}!!!")
     print("\nSELECT THE SERVICE YOU WANT TO CHOOSE..")
-    print("\n 1. Deposit Amount ")
+    print("\n 1.Deposit Amount ")
     print("\n 2.Check your Account Balance")
-    print("\n 3. Withdraw Amount")
+    print("\n 3.Withdraw Amount")
     print("\n 4.Know your PIN")
     print("\n 5.Delete  your Account")
     selected_option = input("\n>>")
 
     option_loop = True
     while option_loop:
-        if selected_option == 1:
+        if selected_option == "1":
             deposit_amount(username, pin)
             break
-        elif selected_option == 2:
-            check_balance()
+        elif selected_option == "2":
+            check_balance(username, pin)
             break
-        elif selected_option == 3:
+        elif selected_option == "3":
             withdraw_amount()
             break
-        elif selected_option == 4:
+        elif selected_option == "4":
             know_pin()
             break
-        elif selected_option == 5:
+        elif selected_option == "5":
             delete_account()
             break
         else:
             print("\n INVALID INPUT.PLEASE ENTER A VALID OPTION ")
-
+            break
 
 def create_new_account():
     """
-    Creates new account by getting username from the user and assigns a 
+    Creates new account by getting username from th2 user and assigns a 
     PIN to each account.It also validates that the username has required
     length, avoids repetition,is not starting with a number and has no spaces 
     in it.
@@ -103,13 +136,17 @@ def create_new_account():
     elif len(username) > 3 and len(username) < 11:
         print("Creating Account.Please wait a second... ")
         pin = generate_pin()
-
+        upd_amt = 0
+        balance = 0
+        date = current_date()
         new_customer = customer(username, pin)
-        customer_info = [new_customer.username, new_customer.pin]
+        customer_info = [new_customer.username, new_customer.pin, date, upd_amt, balance]
         PersonalDetails.append_row(customer_info)
+        
         print("\n NEW ACCOUNT SUCCESSFULLY CREATED....")
         print(f"Your username is :{username}")
         print(f"Your PIN is :{pin}")
+
         permission = False
         account_welcome_page(username, pin)
         
@@ -153,37 +190,8 @@ def main():
 
 #main()
 
+def current_date():
+    date = datetime.date.today()
+    print(date)
+current_date()
 
-username = "sivadas"
-pin = 1234
-
-def deposit_amount(username, pin):
-    """
-    Deposits the given amount into the account after validation
-
-    """
-    print("Please enter the amount you want to deposit ")
-    deposit = input(">>")
-    
-    gets_name = PersonalDetails.find(username, in_column=1)
-    print(f"The name is {gets_name}")
-    gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 4).value
-    bal_cell = PersonalDetails.cell(gets_name.row, gets_name.col + 4)
-    print(gets_balance)
-    last_upd_amt = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
-    print(last_upd_amt)
-    new_upd_amt = deposit
-    new_bal = gets_balance + deposit
-    
-    PersonalDetails.values_clear("E4:E4")
-
-
-deposit_amount(username, pin) 
-
-
-def turn_to_currency(deposit):
-    """
-    Turns a number into a float with 2 decimal places.
-    """
-    currency = round(float(deposit), 2)
-    return currency
