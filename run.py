@@ -40,6 +40,20 @@ def turn_to_currency(amount):
     return currency
 
 
+def check_pin(pin):
+    """
+    Compares the given pin with the pin inthe database
+    """
+    print("\nPLEASE ENTER YOUR PIN....")
+    entered_pin = input(">>")
+    if int(entered_pin) == pin:
+        return True
+
+    else:
+        print("\nINCORRECT PIN.... ")
+        return False
+
+
 class customer:
     """
     Creates a user class to store user information.
@@ -47,6 +61,52 @@ class customer:
     def __init__(self, username, pin):
         self.username = username
         self.pin = pin
+
+    
+def delete_account(username,pin):
+    """
+    Deletes the user's account and removes the data from database
+
+    """
+    print("\nAre you sure you want to delete the account")
+    print("press Y or N")
+    # Begins a loop to get the answer again in case of incorrect answer 
+    answer_loop = True
+    while answer_loop:
+        answer = input(">>")
+        # If the answer is no theen go back to the welcome page and breaks the loop
+        if answer.lower() =="n":
+            print("\nGOING  BACK TO ACCOUNT....")
+            account_welcome_page(username, pin)
+            answer_loop = False
+        # If the answer is yes then checks the pin and proceeds to delete the account
+        elif answer.lower() == "y":
+            # Calls the function to compare the pin
+            given_pin = check_pin(pin)
+            # If entered pin is correct then proceeds to delete the account
+            if given_pin:
+                print("\nDELETING YOUR ACCOUNT.....")
+                # Deltes the user's individual worksheet and deletes it.
+                user_sheet = SHEET.worksheet(username)
+                SHEET.del_worksheet(user_sheet)
+                # Gets the user's name from the database
+                gets_name = PersonalDetails.find(username, in_column=1)
+                # The complete row of information of the selected user is taken
+                row_values = PersonalDetails.row_values(gets_name.row)
+                # The complete row is deleted
+                PersonalDetails.delete_rows(gets_name.row)
+                print("\nACCOUNT DELETED SUCCESSFULLY")
+                answer_loop = False
+            else:
+                # If entered pin is incorrect takes the user to welcome page.
+                account_welcome_page(username, pin)
+                break
+        else:
+            print("\nInvalid Input..")
+            print("\nPRESS Y or N ")
+
+    # After deleting takes the user to welcome page so that they can create a new account.
+    welcome()
 
 
 def withdraw_amount(username, pin):
@@ -194,7 +254,7 @@ def account_welcome_page(username, pin):
             know_pin(username)
             break
         elif selected_option == "5":
-            delete_account()
+            delete_account(username, pin)
             break
         else:
             print("\n INVALID INPUT.PLEASE ENTER A VALID OPTION ")
@@ -278,11 +338,10 @@ def login_account():
             print("\n USERNAME OR PIN INCORRECT")
             welcome()
     else:
-            print("\n USERNAME OR PIN INCORRECT")
-            welcome()
+        print("\n USERNAME OR PIN INCORRECT")
+        welcome()
 
-
-        
+       
 def welcome():
     """
     Displays the welcome message when the user opens the website
@@ -309,4 +368,22 @@ def main():
     welcome()
 
 
-main()
+# main()
+
+username = "Sarimol"
+pin = 8015
+
+
+def check_pin(pin):
+    """
+    compares the given pin with the pin inthe database
+    """
+    print("\nPLEASE ENTER YOUR PIN....")
+    entered_pin = input(">>")
+    if int(entered_pin) == pin:
+        return True
+
+    else:
+        print("\nINCORRECT PIN.... ")
+        return False
+
