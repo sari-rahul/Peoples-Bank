@@ -1,9 +1,11 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
+# To generate random numbers
 import random
+# To clear the terminal
 import os
-import sys
+# To get the current date 
 from datetime import datetime, date
 
 SCOPE = [
@@ -40,13 +42,22 @@ def turn_to_currency(amount):
     return currency
 
 
+def clear():
+    """
+    clears the screen
+
+    """
+    os.system('clear')
+
+
 def check_pin(pin):
     """
     Compares the given pin with the pin inthe database
     """
     print("\nPLEASE ENTER YOUR PIN....")
     entered_pin = input(">>")
-    if int(entered_pin) == pin:
+    
+    if entered_pin == pin:
         return True
 
     else:
@@ -187,6 +198,7 @@ def deposit_amount(username, pin):
     Deposits the given amount into the account after validation
 
     """
+    clear()
     print("Please enter the amount you want to deposit ")
     amount = input(">>")
     deposit = turn_to_currency(amount)
@@ -229,8 +241,9 @@ def generate_pin():
 
 
 def account_welcome_page(username, pin):
+    
     # Displays the various function that can be done by the user 
-    print(f"\n\nWelcome {username}!!!")
+    print(f"\n\nHello {username}!!!")
     print("\nSELECT THE SERVICE YOU WANT TO CHOOSE..")
     print("\n 1.Deposit Amount ")
     print("\n 2.Check your Account Balance")
@@ -284,8 +297,9 @@ def create_new_account():
     in it.
     
     """
-    print("Please enter your username")
-    print("The username should have 4 to 10 characters")
+    clear()
+    print("PLEASE ENTER YOUR USERNAME ")
+    print("(The username should have 4 to 10 characters)")
     username = input("\n>>").capitalize()
     # compares the user given username with the database and avoids repeatition
     if PersonalDetails.find(username, in_column=1) is not None:
@@ -311,17 +325,15 @@ def create_new_account():
         customer_info = [n_cust.username, n_cust.pin, date, balance]
         PersonalDetails.append_row(customer_info)
         generate_new_worksheet(username)
-        print("\nNEW ACCOUNT SUCCESSFULLY CREATED....")
-        print(f"Your username is :{username}")
-        print(f"Your PIN is :{pin}")
 
         permission = False
         account_welcome_page(username, pin)
         
 
 def login_account():
+    clear()
     print("Enter your name to login:")
-    entered_username = input(">>")
+    entered_username = input(">>").capitalize()
     print("Enter your PIN :")
     entered_pin = input(">>")
     stored_names = PersonalDetails.find(entered_username, in_column=1)
@@ -350,7 +362,7 @@ def welcome():
     permission = True
     while permission:
 
-        print("Welcome to Peoples Online Banking Services")
+        print("\n\nWELCOME TO PEOPLES ONLINE BANKING SERVICES")
         print("\nWhat would you like to do..?")
         print("\n 1.Login")
         print("\n 2.Create a new account")
@@ -368,22 +380,6 @@ def main():
     welcome()
 
 
-# main()
+main()
 
-username = "Sarimol"
-pin = 8015
-
-
-def check_pin(pin):
-    """
-    compares the given pin with the pin inthe database
-    """
-    print("\nPLEASE ENTER YOUR PIN....")
-    entered_pin = input(">>")
-    if int(entered_pin) == pin:
-        return True
-
-    else:
-        print("\nINCORRECT PIN.... ")
-        return False
 
