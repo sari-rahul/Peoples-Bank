@@ -356,8 +356,10 @@ def create_new_account():
         PersonalDetails.append_row(customer_info)
         generate_new_worksheet(username)
         permission = False
-        sleep(1)
-        account_welcome_page(username, pin)
+        print(f"\n{username} IS YOUR USERNAME")
+        print(f"\nYOUR PIN IS:{pin}")
+        sleep(5)
+        login_account()
 
 
 def logging_out():
