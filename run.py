@@ -136,47 +136,51 @@ def withdraw_amount(username, pin):
     print("Please enter the amount you want to withdraw ")
     print("Press 'e' to exit")
     amount = input(">>")
-    withdraw = turn_to_currency(amount)
-    # Gets the user's name from the database
-    gets_name = PersonalDetails.find(username, in_column=1)
-    # Gets the current balance amount in the account
-    gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
-
-    if float(withdraw) > float(gets_balance):
-        print("\nINSUFFICIENT BALANCE...")
-        sleep(1)
-        withdraw_amount(username, pin)
-    elif float(withdraw) == 0 or float(withdraw) < 0: 
-        print("\nINPUT INVALID....")
-        sleep(1)
-        withdraw_amount(username, pin)
-    elif amount == "e":
+    # Checks if the value is 'e' and exits the function
+    if amount == "e":
+        logging_out()
         account_welcome_page(username, pin)
     else:
-        print(f"\nWITHDRAWING {withdraw} EURO FROM ACCOUNT.....")
-        user_sheet = SHEET.worksheet(username)
-        date = current_date()
-        deposit = 0
-        new_bal = float(gets_balance)-float(withdraw)
-        updation = []
-        updation = [date, deposit, withdraw, new_bal]
-        # appends the new data to the worksheet generated
-        user_sheet.append_row(updation)
-
-        # Get the name from personal details page 
+        withdraw = turn_to_currency(amount)
+        # Gets the user's name from the database
         gets_name = PersonalDetails.find(username, in_column=1)
-        # Gets the complete row values
-        row_values = PersonalDetails.row_values(gets_name.row)
-        # Changes the last value in the array to new balance
-        row_values[-1] = new_bal
-        # Deletes the present row 
-        PersonalDetails.delete_rows(gets_name.row)
-        # The new row with updated information is appended
-        PersonalDetails.append_row(row_values)
-        sleep(2)
-        print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
-        sleep(2)
-        account_welcome_page(username, pin)
+        # Gets the current balance amount in the account
+        gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
+
+        if float(withdraw) > float(gets_balance):
+            print("\nINSUFFICIENT BALANCE...")
+            sleep(1)
+            withdraw_amount(username, pin)
+        elif float(withdraw) == 0 or float(withdraw) < 0: 
+            print("\nINPUT INVALID....")
+            sleep(1)
+            withdraw_amount(username, pin)
+        
+        else:
+            print(f"\nWITHDRAWING {withdraw} EURO FROM ACCOUNT.....")
+            user_sheet = SHEET.worksheet(username)
+            date = current_date()
+            deposit = 0
+            new_bal = float(gets_balance)-float(withdraw)
+            updation = []
+            updation = [date, deposit, withdraw, new_bal]
+            # appends the new data to the worksheet generated
+            user_sheet.append_row(updation)
+
+            # Get the name from personal details page 
+            gets_name = PersonalDetails.find(username, in_column=1)
+            # Gets the complete row values
+            row_values = PersonalDetails.row_values(gets_name.row)
+            # Changes the last value in the array to new balance
+            row_values[-1] = new_bal
+            # Deletes the present row 
+            PersonalDetails.delete_rows(gets_name.row)
+            # The new row with updated information is appended
+            PersonalDetails.append_row(row_values)
+            sleep(2)
+            print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
+            sleep(2)
+            account_welcome_page(username, pin)
 
 
 def check_balance(username, pin):
@@ -220,7 +224,7 @@ def deposit_amount(username, pin):
     print("Please enter the amount you want to deposit ")
     amount = input(">>")
     deposit = turn_to_currency(amount)
-    print("DEPOSITING THE AMOUNT...")
+    print("\nDEPOSITING THE AMOUNT...")
     sleep(1)
     # Gets the user's name from the database
     gets_name = PersonalDetails.find(username, in_column=1)
@@ -361,8 +365,28 @@ def logging_out():
     print("\nLOGGING OUT...")
 
 
-def admin_delete_acc(username, pin):
-    pass
+def admin_delete_acc(user_to_delete, pin):
+    # Finds the username in the database
+    get_name = PersonalDetails.find(user_to_delete, in_column=1)
+    print("\n\nAre you sure the account should be deleted")
+    print("\n Press Y or N")
+    decision = input(">>").lower()
+    if decision == "n":
+        print("\nRETURNING BACK....")
+        sleep(2)
+        admin_login("Admin", 9053)
+    elif decision == "y":
+        # The complete row is deleted
+        PersonalDetails.delete_rows(get_name.row)
+        # Deltes the user's individual worksheet and deletes it.
+        user_sheet = SHEET.worksheet(user_to_delete)
+        SHEET.del_worksheet(user_sheet)
+        print("\nACCOUNT DELETED SUCCESSFULLY")
+        admin_login("Admin", 9053) 
+    else:
+        print("\nINPUT INVALID. PLEASE TRY AGAIN")
+        sleep(1)
+        admin_login("Admin", 9053) 
 
 
 def view_acc_holders(username, pin):
@@ -383,6 +407,7 @@ def admin_login(username, pin):
     Opens a panel for admin to view all users, delete a user and to logout.
     
     """
+    clear()
     print("\n\nWELCOME ADMIN")
     print("\n1. View all account holders")
     print("\n2. Delete an account")
@@ -399,12 +424,12 @@ def admin_login(username, pin):
              
         elif admin_choice == "2":
             print("\nTo delete an account, Please enter the username")
-            user_to_delete = input(">>")
+            user_to_delete = input(">>").capitalize()
             # Get the name in database
             stored_names = PersonalDetails.find(user_to_delete, in_column=1)
 
             if stored_names:
-                admin_delete_acc(username, pin)
+                admin_delete_acc(user_to_delete, pin)
                 selection_loop = False
             elif user_to_delete == "0":
                 logging_out()
@@ -489,8 +514,3 @@ def main():
 
 
 main()
-
-
-
-
-
