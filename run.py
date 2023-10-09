@@ -9,7 +9,7 @@ from os import system
 from datetime import datetime, date
 # To create a delay in execution
 from time import sleep
-import pprint
+# To display as a table
 from tabulate import tabulate
 
 SCOPE = [
@@ -109,8 +109,6 @@ def delete_account(username, pin):
                 SHEET.del_worksheet(user_sheet)
                 # Gets the user's name from the database
                 gets_name = PersonalDetails.find(username, in_column=1)
-                # The complete row of information of the selected user is taken
-                row_values = PersonalDetails.row_values(gets_name.row)
                 # The complete row is deleted
                 PersonalDetails.delete_rows(gets_name.row)
                 print("\nACCOUNT DELETED SUCCESSFULLY")
@@ -136,6 +134,7 @@ def withdraw_amount(username, pin):
     """
     clear()
     print("Please enter the amount you want to withdraw ")
+    print("Press 'e' to exit")
     amount = input(">>")
     withdraw = turn_to_currency(amount)
     # Gets the user's name from the database
@@ -151,6 +150,8 @@ def withdraw_amount(username, pin):
         print("\nINPUT INVALID....")
         sleep(1)
         withdraw_amount(username, pin)
+    elif amount == "e":
+        account_welcome_page(username, pin)
     else:
         print(f"\nWITHDRAWING {withdraw} EURO FROM ACCOUNT.....")
         user_sheet = SHEET.worksheet(username)
@@ -270,11 +271,15 @@ def account_welcome_page(username, pin):
     print("\n 3.Withdraw Amount")
     print("\n 4.Know your PIN")
     print("\n 5.Delete  your Account")
+    print("\n                         Enter 0 to log out...")
     selected_option = input("\n>>")
 
     option_loop = True
     while option_loop:
-        if selected_option == "1":
+        if selected_option == "0":
+            logging_out()
+            break
+        elif selected_option == "1":
             deposit_amount(username, pin)
             break
         elif selected_option == "2":
@@ -302,7 +307,7 @@ def generate_new_worksheet(username):
     # Create the worksheet
     new_sheet = SHEET.add_worksheet(title=username, rows=100, cols=4)
     # Add in heading and starting balance
-    headings = ['Date', 'Deposit', 'Withdraw', 'Balance']
+    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)']
     date = current_date()
     starting_balance = [date, "0", "0", "0"]
     new_sheet.append_row(headings)
@@ -352,6 +357,7 @@ def create_new_account():
 
 
 def logging_out():
+    clear()
     print("\nLOGGING OUT...")
 
 
@@ -363,6 +369,7 @@ def view_acc_holders(username, pin):
     """
     Give Admin a list of all the users, their PIN last updation date and balance.
     """
+    clear()
     print("\nLOADING DATA.....\n\n")
     sleep(2)
     full_data = PersonalDetails.get_all_values()
@@ -376,7 +383,7 @@ def admin_login(username, pin):
     Opens a panel for admin to view all users, delete a user and to logout.
     
     """
-    print("\nWELCOME ADMIN")
+    print("\n\nWELCOME ADMIN")
     print("\n1. View all account holders")
     print("\n2. Delete an account")
     print("\n3. Log out")
@@ -408,6 +415,11 @@ def admin_login(username, pin):
                 print("\nUser not found")
 
         elif admin_choice == "0":
+            logging_out()
+            sleep(2)
+            welcome()
+            break
+        elif admin_choice == "3":
             logging_out()
             sleep(2)
             welcome()
