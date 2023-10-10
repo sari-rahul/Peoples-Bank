@@ -78,7 +78,7 @@ class customer:
         self.username = username
         self.pin = pin
 
-    
+  
 def delete_account(username, pin):
     """
     Deletes the user's account and removes the data from database
@@ -104,7 +104,7 @@ def delete_account(username, pin):
             if given_pin:
                 print("\nDELETING YOUR ACCOUNT.....")
                 sleep(1)
-                # Deltes the user's individual worksheet and deletes it.
+                # Finds the user's individual worksheet and deletes it.
                 user_sheet = SHEET.worksheet(username)
                 SHEET.del_worksheet(user_sheet)
                 # Gets the user's name from the database
@@ -200,6 +200,75 @@ def check_balance(username, pin):
     account_welcome_page(username, pin)
 
 
+def change_pin(username):
+    """
+    Changes the PIN number to a new PIN or user selected PIN
+    
+    """
+    clear()
+    print("\nSelect any one option:")
+    print("\n\n1.Enter a PIN of your choice")
+    print("\n2.Get a new PIN ")
+    users_choice = input(">>")
+    if users_choice == "1":
+        print("\n\nPlease enter a four-digit PIN number")
+        users_pin = input(">>")
+        # Searches for the username in database
+        get_name = PersonalDetails.find(username, in_column =1)
+        # Gets the complete row of the username
+        get_row = PersonalDetails.row_values(get_name.row)
+        # Changes the pin to the new user selected number
+        get_row[1] = users_pin
+        # The present Row is deleted
+        PersonalDetails.delete_rows(get_name.row)
+        # The new row with updated information is appended
+        PersonalDetails.append_row(get_row)
+        # Calls the  worksheet with the new user
+        user_sheet = SHEET.worksheet(username)
+        # Generates the current date
+        date = current_date()
+        # Creates an empty array
+        pin_change = []
+        # Date and pin change information is entered
+        pin_change = [date, "-", "-", "-", "PIN changed"]
+        # appends the new data to the worksheet generated
+        user_sheet.append_row(pin_change)
+        print("\nYour PIN number has been changed.")
+        sleep(3)
+        # Calls the welcome page so that the user can select anothe function
+        account_welcome_page(username, users_pin)
+
+    elif users_choice == "2":
+        print("\nGenerating a new PIN for your account.")
+        # generates new pin
+        new_pin = generate_pin()
+        print(f"\n YOUR NEW PIN NUMBER IS {new_pin}")
+        # Searches for the username in database
+        get_name = PersonalDetails.find(username, in_column =1)
+        # Gets the complete row of the username
+        get_row = PersonalDetails.row_values(get_name.row)
+        # Changes the pin to the new user selected number
+        get_row[1] = new_pin
+        # The present Row is deleted
+        PersonalDetails.delete_rows(get_name.row)
+        # The new row with updated information is appended
+        PersonalDetails.append_row(get_row)
+        # The username corresponding worksheet is taken
+        user_sheet = SHEET.worksheet(username)
+        # Generates the current date
+        date = current_date()
+        # Creates an empty array
+        pin_change = []
+        # Date and pin change information is entered
+        pin_change = [date, "-", "-", "-", "PIN changed"]
+        # Appends the new data to the worksheet generated
+        user_sheet.append_row(pin_change)
+        print("\nYour PIN number has been changed.")
+        sleep(3)
+        # Calls the welcome page so that the user can select anothe function
+        account_welcome_page(username, new_pin)
+       
+
 def know_pin(username):
     """
     Shows the secret PIN to the user
@@ -274,8 +343,9 @@ def account_welcome_page(username, pin):
     print("\n 2.Check your Account Balance")
     print("\n 3.Withdraw Amount")
     print("\n 4.Know your PIN")
-    print("\n 5.Delete  your Account")
-    print("\n                         Enter 0 to log out...")
+    print("\n 5.Change your PIN")
+    print("\n 6.Delete  your Account")
+    print("\n                          Enter 0 to log out...")
     selected_option = input("\n>>")
 
     option_loop = True
@@ -296,6 +366,9 @@ def account_welcome_page(username, pin):
             know_pin(username)
             break
         elif selected_option == "5":
+            change_pin(username)
+            break
+        elif selected_option == "6":
             delete_account(username, pin)
             break
         else:
@@ -311,9 +384,9 @@ def generate_new_worksheet(username):
     # Create the worksheet
     new_sheet = SHEET.add_worksheet(title=username, rows=100, cols=4)
     # Add in heading and starting balance
-    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)']
+    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)','PIN change']
     date = current_date()
-    starting_balance = [date, "0", "0", "0"]
+    starting_balance = [date, "0", "0", "0",date]
     new_sheet.append_row(headings)
     new_sheet.append_row(starting_balance)
 
@@ -371,7 +444,7 @@ def admin_delete_acc(user_to_delete, pin):
     # Finds the username in the database
     get_name = PersonalDetails.find(user_to_delete, in_column=1)
     print("\n\nAre you sure the account should be deleted")
-    print("\n Press Y or N")
+    print("\nPress Y or N")
     decision = input(">>").lower()
     if decision == "n":
         print("\nRETURNING BACK....")
@@ -380,10 +453,11 @@ def admin_delete_acc(user_to_delete, pin):
     elif decision == "y":
         # The complete row is deleted
         PersonalDetails.delete_rows(get_name.row)
-        # Deltes the user's individual worksheet and deletes it.
+        # Finds the user's individual worksheet and deletes it.
         user_sheet = SHEET.worksheet(user_to_delete)
         SHEET.del_worksheet(user_sheet)
         print("\nACCOUNT DELETED SUCCESSFULLY")
+        sleep(3)
         admin_login("Admin", 9053) 
     else:
         print("\nINPUT INVALID. PLEASE TRY AGAIN")
@@ -401,7 +475,15 @@ def view_acc_holders(username, pin):
     full_data = PersonalDetails.get_all_values()
     acc_holder_data = full_data[2:]
     print(tabulate(acc_holder_data, headers=['Username', 'PIN', 'Last updated on', 'Balance']))
-    admin_login(username, pin)
+    print("\n                                Press '0' to go back")
+    next_step = input()
+    answer_loop = True
+    while answer_loop:
+        if next_step == "0":
+            admin_login(username, pin)
+            answer_loop = False
+        else:
+            print("Press'0' to go back")
 
 
 def admin_login(username, pin):
@@ -413,7 +495,8 @@ def admin_login(username, pin):
     print("\n\nWELCOME ADMIN")
     print("\n1. View all account holders")
     print("\n2. Delete an account")
-    print("\n3. Log out")
+    print("\n3. Check account of a user")
+    print("\n4. Log out")
 
     selection_loop = True
     while selection_loop:
@@ -423,7 +506,7 @@ def admin_login(username, pin):
         if admin_choice == "1":
             selection_loop = False
             view_acc_holders(username, pin)
-             
+        # Delete an account    
         elif admin_choice == "2":
             print("\nTo delete an account, Please enter the username")
             user_to_delete = input(">>").capitalize()
@@ -440,14 +523,42 @@ def admin_login(username, pin):
                 break
             else:
                 print("\nUser not found")
+        # View the account of user
+        elif admin_choice == "3":
+            print("\nEnter the username for the account you want to see.")
+            account_un = input(">>").capitalize()
+            # Searches the username in Database
+            get_name = PersonalDetails.find(account_un, in_column=1)
+            if get_name:
+                clear()
+                print("\nLOADING DATA.....\n\n")
+                sleep(2)
+                # Finds the user's individual worksheet.
+                full_data = SHEET.worksheet(account_un)
+                full_data_arr = full_data.get_all_values()
+                acc_holder_data = full_data_arr[1:]
+                print(tabulate(acc_holder_data, headers=['Username', 'Deposit', 'Withdraw', 'Balance', 'PIN change']))
+                answer_loop = True
+                while answer_loop:
+                    answer = input("\n\nType '0' to go back")
+                    if answer == "0":
+                        admin_login(username, pin)
+                        answer_loop = False
+                    else:
+                        print("\n    Type '0' to go back")
 
-        elif admin_choice == "0":
+
+            else:
+                print("\nUser not found")
+                break
+
+        elif admin_choice == "4":
             logging_out()
             sleep(2)
             welcome()
             break
-        elif admin_choice == "3":
-            logging_out()
+        elif admin_choice == "0":
+            admin_login(username, pin)
             sleep(2)
             welcome()
             break
@@ -496,7 +607,7 @@ def welcome():
     clear()
     permission = True
     while permission:
-
+        
         print("\n\nWELCOME TO PEOPLES ONLINE BANKING SERVICES")
         print("\nWhat would you like to do..?")
         print("\n 1.Login")
@@ -516,3 +627,4 @@ def main():
 
 
 main()
+
