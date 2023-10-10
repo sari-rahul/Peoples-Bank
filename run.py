@@ -135,7 +135,7 @@ def withdraw_amount(username, pin):
     clear()
     print("Please enter the amount you want to withdraw ")
     print("Press 'e' to exit")
-    amount = input(">>")
+    amount = input("€")
     # Checks if the value is 'e' and exits the function
     if amount == "e":
         logging_out()
@@ -157,7 +157,7 @@ def withdraw_amount(username, pin):
             withdraw_amount(username, pin)
         
         else:
-            print(f"\nWITHDRAWING {withdraw} EURO FROM ACCOUNT.....")
+            print(f"\nWITHDRAWING €{withdraw} FROM ACCOUNT.....")
             user_sheet = SHEET.worksheet(username)
             date = current_date()
             deposit = 0
@@ -179,7 +179,8 @@ def withdraw_amount(username, pin):
             PersonalDetails.append_row(row_values)
             sleep(2)
             print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
-            sleep(2)
+            print(f"\nYOUR CURRENT ACCOUNT BALANCE IS :€{new_bal}")
+            sleep(4)
             account_welcome_page(username, pin)
 
 
@@ -194,7 +195,7 @@ def check_balance(username, pin):
     gets_name = PersonalDetails.find(username, in_column=1)
     # Gets the current balance amount in the account
     gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
-    print(f"\nYOUR CURRENT BALANCE IS {gets_balance} EURO")
+    print(f"\nYOUR CURRENT BALANCE IS €{gets_balance}")
     sleep(2)
     # Calls the welcome page so that the user can select anothe function
     account_welcome_page(username, pin)
@@ -244,7 +245,7 @@ def change_pin(username):
         new_pin = generate_pin()
         print(f"\n YOUR NEW PIN NUMBER IS {new_pin}")
         # Searches for the username in database
-        get_name = PersonalDetails.find(username, in_column =1)
+        get_name = PersonalDetails.find(username, in_column=1)
         # Gets the complete row of the username
         get_row = PersonalDetails.row_values(get_name.row)
         # Changes the pin to the new user selected number
@@ -317,7 +318,7 @@ def deposit_amount(username, pin):
     updation = [date, deposit, withdraw, new_bal]
     # appends the new data to the worksheet generated
     user_sheet.append_row(updation)
-    print(f"\n{deposit} Euro has been deposited!!! ")
+    print(f"\n€{deposit} has been deposited!!! ")
     sleep(2)
     # Calls the welcome page so that the user can select anothe function
     account_welcome_page(username, pin)
@@ -384,9 +385,9 @@ def generate_new_worksheet(username):
     # Create the worksheet
     new_sheet = SHEET.add_worksheet(title=username, rows=100, cols=4)
     # Add in heading and starting balance
-    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)','PIN change']
+    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)','PIN status']
     date = current_date()
-    starting_balance = [date, "0", "0", "0",date]
+    starting_balance = [date, "0", "0", "0", "PIN generated"]
     new_sheet.append_row(headings)
     new_sheet.append_row(starting_balance)
 
@@ -547,7 +548,6 @@ def admin_login(username, pin):
                     else:
                         print("\n    Type '0' to go back")
 
-
             else:
                 print("\nUser not found")
                 break
@@ -598,7 +598,8 @@ def login_account():
         sleep(1)
         welcome()
 
-       
+
+
 def welcome():
     """
     Displays the welcome message when the user opens the website
@@ -626,5 +627,4 @@ def main():
     welcome()
 
 
-main()
-
+main() 
