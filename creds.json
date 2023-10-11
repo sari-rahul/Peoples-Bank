@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "peoplesbank",
+  "private_key_id": "c4a8575562befba3b7f638be07879fd8d40445e0",
+  "private_key": "MIEDiRXUQgePgcEyd78Xw7+2vba7TCfyIQgQ89ZGfjW+I46o7pEHbbVAoGACpHuY1OziVN1EygswwhzC4MLtax3v1loPADQjNQU96kJOcnYpfvS5x9AzA2cIezk=",
+  "client_email": "peoplesbank@peoplesbank.iam.gserviceaccount.com",
+  "client_id": "101028884898520230221",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/peoplesbank%40peoplesbank.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
