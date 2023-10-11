@@ -58,8 +58,8 @@ def check_pin(pin):
     """
     Compares the given pin with the pin inthe database
     """
-    print("\nPLEASE ENTER YOUR PIN....")
-    entered_pin = input(">>\n")
+    print("\n\nPLEASE ENTER YOUR PIN....")
+    entered_pin = input(">>")
     sleep(2)
     
     if entered_pin == pin:
@@ -84,12 +84,13 @@ def delete_account(username, pin):
     Deletes the user's account and removes the data from database
 
     """
-    print("\nAre you sure you want to delete the account")
+    clear()
+    print("\n\nAre you sure you want to delete the account")
     print("press Y or N")
     # Begins a loop to get the answer again in case of incorrect answer 
     answer_loop = True
     while answer_loop:
-        answer = input(">>\n")
+        answer = input(">>")
         # If the answer is no theen go back to the welcome page and breaks the loop
         if answer.lower() == "n":
             print("\nGOING  BACK TO ACCOUNT....")
@@ -133,9 +134,9 @@ def withdraw_amount(username, pin):
 
     """
     clear()
-    print("Please enter the amount you want to withdraw ")
+    print("\n\nPlease enter the amount you want to withdraw ")
     print("Press 'e' to exit")
-    amount = input("€\n")
+    amount = input("€")
     # Checks if the value is 'e' and exits the function
     if amount == "e":
         logging_out()
@@ -180,7 +181,7 @@ def withdraw_amount(username, pin):
             sleep(2)
             print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
             print(f"\nYOUR CURRENT ACCOUNT BALANCE IS :€{new_bal}")
-            sleep(4)
+            sleep(5)
             account_welcome_page(username, pin)
 
 
@@ -189,6 +190,7 @@ def check_balance(username, pin):
     Checks the current balance amount in the users account
     
     """
+    clear()
     print("\nCHECKING BALANCE.....")
     sleep(2)
     # Gets the user's name from the database
@@ -196,7 +198,7 @@ def check_balance(username, pin):
     # Gets the current balance amount in the account
     gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
     print(f"\nYOUR CURRENT BALANCE IS €{gets_balance}")
-    sleep(2)
+    sleep(5)
     # Calls the welcome page so that the user can select anothe function
     account_welcome_page(username, pin)
 
@@ -207,13 +209,13 @@ def change_pin(username):
     
     """
     clear()
-    print("\nSelect any one option:")
+    print("\n\nSelect any one option:")
     print("\n\n1.Enter a PIN of your choice")
     print("\n2.Get a new PIN ")
-    users_choice = input(">>\n")
+    users_choice = input(">>")
     if users_choice == "1":
         print("\n\nPlease enter a four-digit PIN number")
-        users_pin = input(">>\n")
+        users_pin = input(">>")
         # Searches for the username in database
         get_name = PersonalDetails.find(username, in_column=1)
         # Gets the complete row of the username
@@ -243,7 +245,7 @@ def change_pin(username):
         print("\nGenerating a new PIN for your account.")
         # generates new pin
         new_pin = generate_pin()
-        print(f"\n YOUR NEW PIN NUMBER IS {new_pin}")
+        print(f"\nYOUR NEW PIN NUMBER IS {new_pin}")
         # Searches for the username in database
         get_name = PersonalDetails.find(username, in_column=1)
         # Gets the complete row of the username
@@ -268,6 +270,8 @@ def change_pin(username):
         sleep(3)
         # Calls the welcome page so that the user can select anothe function
         account_welcome_page(username, new_pin)
+    else:
+        change_pin(username)
        
 
 def know_pin(username):
@@ -291,8 +295,8 @@ def deposit_amount(username, pin):
 
     """
     clear()
-    print("Please enter the amount you want to deposit ")
-    amount = input(">>\n")
+    print("\n\nPlease enter the amount you want to deposit ")
+    amount = input(">>")
     deposit = turn_to_currency(amount)
     print("\nDEPOSITING THE AMOUNT...")
     sleep(1)
@@ -401,9 +405,9 @@ def create_new_account():
     
     """
     clear()
-    print("PLEASE ENTER YOUR USERNAME ")
+    print("\n\nPLEASE ENTER YOUR USERNAME ")
     print("(The username should have 4 to 10 characters)")
-    username = input("\n>>\n").capitalize()
+    username = input("\n>>").capitalize()
     # compares the user given username with the database and avoids repeatition
     if PersonalDetails.find(username, in_column=1) is not None:
         print(f"{username} username is unavailable .Please try a new username")
@@ -446,7 +450,7 @@ def admin_delete_acc(user_to_delete, pin):
     get_name = PersonalDetails.find(user_to_delete, in_column=1)
     print("\n\nAre you sure the account should be deleted")
     print("\nPress Y or N")
-    decision = input(">>\n").lower()
+    decision = input(">>").lower()
     if decision == "n":
         print("\nRETURNING BACK....")
         sleep(2)
@@ -502,7 +506,7 @@ def admin_login(username, pin):
     selection_loop = True
     while selection_loop:
 
-        admin_choice = input(">>\n")
+        admin_choice = input(">>")
         # View all account holders
         if admin_choice == "1":
             selection_loop = False
@@ -568,9 +572,9 @@ def admin_login(username, pin):
 
 def login_account():
     clear()
-    print("Enter your name to login:")
+    print("\n\nEnter your name to login:")
     entered_username = input(">>").capitalize()
-    print("Enter your PIN :")
+    print("\nEnter your PIN :")
     entered_pin = input(">>")
     stored_names = PersonalDetails.find(entered_username, in_column=1)
     sleep(1)
