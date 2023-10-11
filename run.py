@@ -18,7 +18,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
+CREDS = Credentials.from_service_account_file('CREDS.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('PeoplesBank')
@@ -59,7 +59,7 @@ def check_pin(pin):
     Compares the given pin with the pin inthe database
     """
     print("\nPLEASE ENTER YOUR PIN....")
-    entered_pin = input(">>")
+    entered_pin = input(">>\n")
     sleep(2)
     
     if entered_pin == pin:
@@ -89,7 +89,7 @@ def delete_account(username, pin):
     # Begins a loop to get the answer again in case of incorrect answer 
     answer_loop = True
     while answer_loop:
-        answer = input(">>")
+        answer = input(">>\n")
         # If the answer is no theen go back to the welcome page and breaks the loop
         if answer.lower() == "n":
             print("\nGOING  BACK TO ACCOUNT....")
@@ -135,7 +135,7 @@ def withdraw_amount(username, pin):
     clear()
     print("Please enter the amount you want to withdraw ")
     print("Press 'e' to exit")
-    amount = input("€")
+    amount = input("€\n")
     # Checks if the value is 'e' and exits the function
     if amount == "e":
         logging_out()
@@ -210,12 +210,12 @@ def change_pin(username):
     print("\nSelect any one option:")
     print("\n\n1.Enter a PIN of your choice")
     print("\n2.Get a new PIN ")
-    users_choice = input(">>")
+    users_choice = input(">>\n")
     if users_choice == "1":
         print("\n\nPlease enter a four-digit PIN number")
-        users_pin = input(">>")
+        users_pin = input(">>\n")
         # Searches for the username in database
-        get_name = PersonalDetails.find(username, in_column =1)
+        get_name = PersonalDetails.find(username, in_column=1)
         # Gets the complete row of the username
         get_row = PersonalDetails.row_values(get_name.row)
         # Changes the pin to the new user selected number
@@ -292,7 +292,7 @@ def deposit_amount(username, pin):
     """
     clear()
     print("Please enter the amount you want to deposit ")
-    amount = input(">>")
+    amount = input(">>\n")
     deposit = turn_to_currency(amount)
     print("\nDEPOSITING THE AMOUNT...")
     sleep(1)
@@ -403,7 +403,7 @@ def create_new_account():
     clear()
     print("PLEASE ENTER YOUR USERNAME ")
     print("(The username should have 4 to 10 characters)")
-    username = input("\n>>").capitalize()
+    username = input("\n>>\n").capitalize()
     # compares the user given username with the database and avoids repeatition
     if PersonalDetails.find(username, in_column=1) is not None:
         print(f"{username} username is unavailable .Please try a new username")
@@ -446,7 +446,7 @@ def admin_delete_acc(user_to_delete, pin):
     get_name = PersonalDetails.find(user_to_delete, in_column=1)
     print("\n\nAre you sure the account should be deleted")
     print("\nPress Y or N")
-    decision = input(">>").lower()
+    decision = input(">>\n").lower()
     if decision == "n":
         print("\nRETURNING BACK....")
         sleep(2)
@@ -477,7 +477,7 @@ def view_acc_holders(username, pin):
     acc_holder_data = full_data[2:]
     print(tabulate(acc_holder_data, headers=['Username', 'PIN', 'Last updated on', 'Balance']))
     print("\n                                Press '0' to go back")
-    next_step = input()
+    next_step = input("\n")
     answer_loop = True
     while answer_loop:
         if next_step == "0":
@@ -502,7 +502,7 @@ def admin_login(username, pin):
     selection_loop = True
     while selection_loop:
 
-        admin_choice = input(">>")
+        admin_choice = input(">>\n")
         # View all account holders
         if admin_choice == "1":
             selection_loop = False
@@ -527,7 +527,7 @@ def admin_login(username, pin):
         # View the account of user
         elif admin_choice == "3":
             print("\nEnter the username for the account you want to see.")
-            account_un = input(">>").capitalize()
+            account_un = input(">>\n").capitalize()
             # Searches the username in Database
             get_name = PersonalDetails.find(account_un, in_column=1)
             if get_name:
@@ -599,7 +599,6 @@ def login_account():
         welcome()
 
 
-
 def welcome():
     """
     Displays the welcome message when the user opens the website
@@ -627,4 +626,4 @@ def main():
     welcome()
 
 
-main() 
+main()
