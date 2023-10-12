@@ -1,16 +1,16 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 # To generate random numbers
 import random
 # To clear the terminal
-from os import system
+import os
 # To get the current date 
 from datetime import datetime, date
 # To create a delay in execution
 from time import sleep
 # To display as a table
 from tabulate import tabulate
+# ascii art file
 import heading_art
 
 SCOPE = [
@@ -52,7 +52,7 @@ def clear():
     clears the screen
 
     """
-    system('clear')
+    os.system('clear')
 
 
 def check_pin(pin):
@@ -385,6 +385,8 @@ def account_welcome_page(username, pin):
             break
         else:
             print("\n INVALID INPUT.PLEASE ENTER A VALID OPTION ")
+            sleep(2)
+            account_welcome_page(username, pin)
             break
 
 
@@ -453,6 +455,7 @@ def logging_out():
     print(heading_art.logo)
     print("\nLOGGING OUT...")
     sleep(3)
+    welcome()
 
 
 def admin_delete_acc(user_to_delete, pin):
@@ -542,12 +545,14 @@ def admin_login(username, pin):
                 break
         # View the account of user
         elif admin_choice == "3":
+            clear()
             print("\nEnter the username for the account you want to see.")
-            account_un = input(">>\n").capitalize()
+            account_un = input(">>").capitalize()
             # Searches the username in Database
             get_name = PersonalDetails.find(account_un, in_column=1)
             if get_name:
                 clear()
+                print(heading_art.logo)
                 print("\nLOADING DATA.....\n\n")
                 sleep(2)
                 # Finds the user's individual worksheet.
@@ -557,12 +562,12 @@ def admin_login(username, pin):
                 print(tabulate(acc_holder_data, headers=['Username', 'Deposit', 'Withdraw', 'Balance', 'PIN change']))
                 answer_loop = True
                 while answer_loop:
-                    answer = input("\n\nType '0' to go back")
+                    answer = input("\n\nType '0' to go back\n")
                     if answer == "0":
                         admin_login(username, pin)
                         answer_loop = False
                     else:
-                        print("\n    Type '0' to go back")
+                        input("\n\nType '0' to go back\n")
 
             else:
                 print("\nUser not found")
@@ -580,6 +585,8 @@ def admin_login(username, pin):
             break
         else:
             print("\n Invalid Input.Please try again ")
+            sleep(2)
+            admin_login(username, pin)
         
 
 def login_account():
@@ -607,11 +614,11 @@ def login_account():
             account_welcome_page(entered_username, entered_pin)
 
         else:
-            print("\n USERNAME OR PIN INCORRECT")
+            print("\nUSERNAME OR PIN INCORRECT")
             sleep(1)
             welcome()
     else:
-        print("\n USERNAME OR PIN INCORRECT")
+        print("\nUSERNAME OR PIN INCORRECT")
         sleep(1)
         welcome()
 
@@ -638,7 +645,9 @@ def welcome():
             create_new_account()
         else:
             print("Invalid Input.Please select 1 or 2 .")
-
+            sleep(2)
+            welcome()
+            
 
 def main():
     welcome()
