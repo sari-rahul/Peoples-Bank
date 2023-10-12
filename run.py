@@ -11,6 +11,7 @@ from datetime import datetime, date
 from time import sleep
 # To display as a table
 from tabulate import tabulate
+import heading_art
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -85,6 +86,7 @@ def delete_account(username, pin):
 
     """
     clear()
+    print(heading_art.logo)
     print("\n\nAre you sure you want to delete the account")
     print("press Y or N")
     # Begins a loop to get the answer again in case of incorrect answer 
@@ -134,6 +136,7 @@ def withdraw_amount(username, pin):
 
     """
     clear()
+    print(heading_art.logo)
     print("\n\nPlease enter the amount you want to withdraw ")
     print("Press 'e' to exit")
     amount = input("€")
@@ -191,6 +194,7 @@ def check_balance(username, pin):
     
     """
     clear()
+    print(heading_art.logo)
     print("\nCHECKING BALANCE.....")
     sleep(2)
     # Gets the user's name from the database
@@ -209,6 +213,7 @@ def change_pin(username):
     
     """
     clear()
+    print(heading_art.logo)
     print("\n\nSelect any one option:")
     print("\n\n1.Enter a PIN of your choice")
     print("\n2.Get a new PIN ")
@@ -295,6 +300,7 @@ def deposit_amount(username, pin):
 
     """
     clear()
+    print(heading_art.logo)
     print("\n\nPlease enter the amount you want to deposit ")
     amount = input(">>")
     deposit = turn_to_currency(amount)
@@ -342,6 +348,7 @@ def account_welcome_page(username, pin):
     
     # Displays the various function that can be done by the user 
     clear()
+    print(heading_art.logo)
     print(f"\n\nHello {username}!!!")
     print("\nSELECT THE SERVICE YOU WANT TO CHOOSE..")
     print("\n 1.Deposit Amount ")
@@ -405,6 +412,7 @@ def create_new_account():
     
     """
     clear()
+    print(heading_art.logo)
     print("\n\nPLEASE ENTER YOUR USERNAME ")
     print("(The username should have 4 to 10 characters)")
     username = input("\n>>").capitalize()
@@ -442,7 +450,9 @@ def create_new_account():
 
 def logging_out():
     clear()
+    print(heading_art.logo)
     print("\nLOGGING OUT...")
+    sleep(3)
 
 
 def admin_delete_acc(user_to_delete, pin):
@@ -475,6 +485,7 @@ def view_acc_holders(username, pin):
     Give Admin a list of all the users, their PIN last updation date and balance.
     """
     clear()
+    print(heading_art.logo)
     print("\nLOADING DATA.....\n\n")
     sleep(2)
     full_data = PersonalDetails.get_all_values()
@@ -497,6 +508,7 @@ def admin_login(username, pin):
     
     """
     clear()
+    print(heading_art.logo)
     print("\n\nWELCOME ADMIN")
     print("\n1. View all account holders")
     print("\n2. Delete an account")
@@ -522,12 +534,12 @@ def admin_login(username, pin):
                 admin_delete_acc(user_to_delete, pin)
                 selection_loop = False
             elif user_to_delete == "0":
-                logging_out()
                 sleep(1)
-                welcome()
+                admin_login(username, pin)
                 break
             else:
                 print("\nUser not found")
+                break
         # View the account of user
         elif admin_choice == "3":
             print("\nEnter the username for the account you want to see.")
@@ -572,6 +584,7 @@ def admin_login(username, pin):
 
 def login_account():
     clear()
+    print(heading_art.logo)
     print("\n\nEnter your name to login:")
     entered_username = input(">>").capitalize()
     print("\nEnter your PIN :")
@@ -609,6 +622,7 @@ def welcome():
 
     """
     clear()
+    print(heading_art.logo)
     permission = True
     while permission:
         
