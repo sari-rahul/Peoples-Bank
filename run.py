@@ -4,7 +4,7 @@ from google.oauth2.service_account import Credentials
 import random
 # To clear the terminal
 import os
-# To get the current date 
+# To get the current date
 from datetime import datetime, date
 # To create a delay in execution
 from time import sleep
@@ -62,7 +62,6 @@ def check_pin(pin):
     print("\n\nPLEASE ENTER YOUR PIN....")
     entered_pin = input(">>")
     sleep(2)
-    
     if entered_pin == pin:
         return True
 
@@ -79,7 +78,7 @@ class customer:
         self.username = username
         self.pin = pin
 
-  
+
 def delete_account(username, pin):
     """
     Deletes the user's account and removes the data from database
@@ -89,17 +88,19 @@ def delete_account(username, pin):
     print(heading_art.logo)
     print("\n\nAre you sure you want to delete the account")
     print("press Y or N")
-    # Begins a loop to get the answer again in case of incorrect answer 
+    # Begins a loop to get the answer again in case of incorrect answer
     answer_loop = True
     while answer_loop:
         answer = input(">>")
-        # If the answer is no theen go back to the welcome page and breaks the loop
+        # If the answer is no theen go back to the welcome
+        # page and breaks the loop
         if answer.lower() == "n":
             print("\nGOING  BACK TO ACCOUNT....")
             sleep(2)
             account_welcome_page(username, pin)
             answer_loop = False
-        # If the answer is yes then checks the pin and proceeds to delete the account
+        # If the answer is yes then checks the pin and
+        # proceeds to delete the account
         elif answer.lower() == "y":
             # Calls the function to compare the pin
             given_pin = check_pin(pin)
@@ -126,7 +127,8 @@ def delete_account(username, pin):
             print("\nInvalid Input..")
             print("\nPRESS Y or N ")
 
-    # After deleting takes the user to welcome page so that they can create a new account.
+    # After deleting takes the user to welcome page so
+    # that they can create a new account.
     welcome()
 
 
@@ -155,11 +157,10 @@ def withdraw_amount(username, pin):
             print("\nINSUFFICIENT BALANCE...")
             sleep(1)
             withdraw_amount(username, pin)
-        elif float(withdraw) == 0 or float(withdraw) < 0: 
+        elif float(withdraw) == 0 or float(withdraw) < 0:
             print("\nINPUT INVALID....")
             sleep(1)
             withdraw_amount(username, pin)
-        
         else:
             print(f"\nWITHDRAWING €{withdraw} FROM ACCOUNT.....")
             user_sheet = SHEET.worksheet(username)
@@ -171,13 +172,13 @@ def withdraw_amount(username, pin):
             # appends the new data to the worksheet generated
             user_sheet.append_row(updation)
 
-            # Get the name from personal details page 
+            # Get the name from personal details page
             gets_name = PersonalDetails.find(username, in_column=1)
             # Gets the complete row values
             row_values = PersonalDetails.row_values(gets_name.row)
             # Changes the last value in the array to new balance
             row_values[-1] = new_bal
-            # Deletes the present row 
+            # Deletes the present row
             PersonalDetails.delete_rows(gets_name.row)
             # The new row with updated information is appended
             PersonalDetails.append_row(row_values)
@@ -191,7 +192,7 @@ def withdraw_amount(username, pin):
 def check_balance(username, pin):
     """
     Checks the current balance amount in the users account
-    
+
     """
     clear()
     print(heading_art.logo)
@@ -210,7 +211,7 @@ def check_balance(username, pin):
 def change_pin(username):
     """
     Changes the PIN number to a new PIN or user selected PIN
-    
+
     """
     clear()
     print(heading_art.logo)
@@ -277,7 +278,7 @@ def change_pin(username):
         account_welcome_page(username, new_pin)
     else:
         change_pin(username)
-       
+
 
 def know_pin(username):
     """
@@ -314,7 +315,7 @@ def deposit_amount(username, pin):
     new_bal = float(gets_balance) + float(deposit)
     # The complete row of information of the selected user is taken
     row_values = PersonalDetails.row_values(gets_name.row)
-    # The last two values are edited 
+    # The last two values are edited
     row_values[-1] = new_bal
     # The present Row is deleted
     PersonalDetails.delete_rows(gets_name.row)
@@ -336,7 +337,7 @@ def deposit_amount(username, pin):
 
 def generate_pin():
     """
-    Generates a random number between 1000 and 9999 
+    Generates a random number between 1000 and 9999
     which is used as the PIN and returns it
 
     """
@@ -345,8 +346,7 @@ def generate_pin():
 
 
 def account_welcome_page(username, pin):
-    
-    # Displays the various function that can be done by the user 
+    # Displays the various function that can be done by the user
     clear()
     print(heading_art.logo)
     print(f"\n\nHello {username}!!!")
@@ -398,7 +398,7 @@ def generate_new_worksheet(username):
     # Create the worksheet
     new_sheet = SHEET.add_worksheet(title=username, rows=100, cols=4)
     # Add in heading and starting balance
-    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)','PIN status']
+    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)', 'PIN status']
     date = current_date()
     starting_balance = [date, "0", "0", "0", "PIN generated"]
     new_sheet.append_row(headings)
@@ -407,11 +407,11 @@ def generate_new_worksheet(username):
 
 def create_new_account():
     """
-    Creates new account by getting username from the user and assigns a 
+    Creates new account by getting username from the user and assigns a
     PIN to each account.It also validates that the username has required
-    length, avoids repetition,is not starting with a number and has no spaces 
+    length, avoids repetition,is not starting with a number and has no spaces
     in it.
-    
+
     """
     clear()
     print(heading_art.logo)
@@ -421,21 +421,29 @@ def create_new_account():
     # compares the user given username with the database and avoids repeatition
     if PersonalDetails.find(username, in_column=1) is not None:
         print(f"{username} username is unavailable .Please try a new username")
+        sleep(2)
+        clear()
     # Checks if the username begins with a number
     elif not username[0].isalpha():
-        print("Username should not begin with number")
+        print("Username should not begin with number or space")
+        sleep(2)
+        clear()
     # Checks if the username has more than the required number of characters
     elif len(username) < 3 and len(username) > 11:
         print("The username should have minimum 4 characters and maximum 10 characters")
+        sleep(2)
+        clear()
     # Checks if the username begins with a space
     elif any(char.isspace() for char in username):
         print(f"{username} is invalid, no white spaces are allowed")
+        sleep(2)
+        clear()
     # Checks if the username has the required number of characters
     elif len(username) > 3 and len(username) < 11:
         print("\nCREATING ACCOUNT.PLEASE WAIT A MINUTE... ")
         sleep(3)
         pin = generate_pin()
-        
+
         balance = "00.00"
         date = current_date()
         # Makes a new customer object of the class customer
@@ -476,16 +484,17 @@ def admin_delete_acc(user_to_delete, pin):
         SHEET.del_worksheet(user_sheet)
         print("\nACCOUNT DELETED SUCCESSFULLY")
         sleep(3)
-        admin_login("Admin", 9053) 
+        admin_login("Admin", 9053)
     else:
         print("\nINPUT INVALID. PLEASE TRY AGAIN")
         sleep(1)
-        admin_login("Admin", 9053) 
+        admin_login("Admin", 9053)
 
 
 def view_acc_holders(username, pin):
     """
-    Give Admin a list of all the users, their PIN last updation date and balance.
+    Give Admin a list of all the users, their PIN last
+    updation date and balance.
     """
     clear()
     print(heading_art.logo)
@@ -508,7 +517,6 @@ def view_acc_holders(username, pin):
 def admin_login(username, pin):
     """
     Opens a panel for admin to view all users, delete a user and to logout.
-    
     """
     clear()
     print(heading_art.logo)
@@ -526,7 +534,7 @@ def admin_login(username, pin):
         if admin_choice == "1":
             selection_loop = False
             view_acc_holders(username, pin)
-        # Delete an account    
+        # Delete an account
         elif admin_choice == "2":
             print("\nTo delete an account, Please enter the username")
             user_to_delete = input(">>").capitalize()
@@ -587,7 +595,7 @@ def admin_login(username, pin):
             print("\n Invalid Input.Please try again ")
             sleep(2)
             admin_login(username, pin)
-        
+
 
 def login_account():
     clear()
@@ -632,7 +640,6 @@ def welcome():
     print(heading_art.logo)
     permission = True
     while permission:
-        
         print("\n\nWELCOME TO PEOPLES ONLINE BANKING SERVICES")
         print("\nWhat would you like to do..?")
         print("\n 1.Login")
@@ -647,7 +654,7 @@ def welcome():
             print("Invalid Input.Please select 1 or 2 .")
             sleep(2)
             welcome()
-            
+
 
 def main():
     welcome()
