@@ -148,46 +148,51 @@ def withdraw_amount(username, pin):
         logging_out()
         account_welcome_page(username, pin)
     else:
-        withdraw = turn_to_currency(amount)
-        # Gets the user's name from the database
-        gets_name = PersonalDetails.find(username, in_column=1)
-        # Gets the current balance amount in the account
-        gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
-
-        if float(withdraw) > float(gets_balance):
-            print("\nINSUFFICIENT BALANCE...")
-            sleep(1)
-            withdraw_amount(username, pin)
-        elif float(withdraw) == 0 or float(withdraw) < 0:
-            print("\nINPUT INVALID....")
-            sleep(1)
-            withdraw_amount(username, pin)
-        else:
-            print(f"\nWITHDRAWING €{withdraw} FROM ACCOUNT.....")
-            user_sheet = SHEET.worksheet(username)
-            date = current_date()
-            deposit = 0
-            new_bal = float(gets_balance)-float(withdraw)
-            updation = []
-            updation = [date, deposit, withdraw, new_bal]
-            # appends the new data to the worksheet generated
-            user_sheet.append_row(updation)
-
-            # Get the name from personal details page
+        if not amount.isalpha():
+            withdraw = turn_to_currency(amount)
+            # Gets the user's name from the database
             gets_name = PersonalDetails.find(username, in_column=1)
-            # Gets the complete row values
-            row_values = PersonalDetails.row_values(gets_name.row)
-            # Changes the last value in the array to new balance
-            row_values[-1] = new_bal
-            # Deletes the present row
-            PersonalDetails.delete_rows(gets_name.row)
-            # The new row with updated information is appended
-            PersonalDetails.append_row(row_values)
+            # Gets the current balance amount in the account
+            gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
+
+            if float(withdraw) > float(gets_balance):
+                print("\nINSUFFICIENT BALANCE...")
+                sleep(1)
+                withdraw_amount(username, pin)
+            elif float(withdraw) == 0 or float(withdraw) < 0:
+                print("\nINPUT INVALID....")
+                sleep(1)
+                withdraw_amount(username, pin)
+            else:
+                print(f"\nWITHDRAWING €{withdraw} FROM ACCOUNT.....")
+                user_sheet = SHEET.worksheet(username)
+                date = current_date()
+                deposit = 0
+                new_bal = float(gets_balance)-float(withdraw)
+                updation = []
+                updation = [date, deposit, withdraw, new_bal]
+                # appends the new data to the worksheet generated
+                user_sheet.append_row(updation)
+
+                # Get the name from personal details page
+                gets_name = PersonalDetails.find(username, in_column=1)
+                # Gets the complete row values
+                row_values = PersonalDetails.row_values(gets_name.row)
+                # Changes the last value in the array to new balance
+                row_values[-1] = new_bal
+                # Deletes the present row
+                PersonalDetails.delete_rows(gets_name.row)
+                # The new row with updated information is appended
+                PersonalDetails.append_row(row_values)
+                sleep(2)
+                print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
+                print(f"\nYOUR CURRENT ACCOUNT BALANCE IS :€{new_bal}")
+                sleep(5)
+                account_welcome_page(username, pin)
+        else: 
+            print("\nPlease Enter a valid Input..")
             sleep(2)
-            print("\nAMOUNT SUCESSFULLY WITHDRAWN.....")
-            print(f"\nYOUR CURRENT ACCOUNT BALANCE IS :€{new_bal}")
-            sleep(5)
-            account_welcome_page(username, pin)
+            withdraw_amount(username, pin)
 
 
 def check_balance(username, pin):
@@ -400,7 +405,7 @@ def account_welcome_page(username, pin):
     print("\n 5.Change your PIN")
     print("\n 6.Your recent Transactions")
     print("\n 7.Delete  your Account")
-    print("\n                          Enter 0 to log out...")
+    print("\n                                       Enter 0 to log out...")
     selected_option = input("\n>>")
 
     option_loop = True
