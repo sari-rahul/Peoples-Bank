@@ -296,6 +296,31 @@ def know_pin(username):
     account_welcome_page(username, pin)
 
 
+def recent_transaction(username, pin):
+    """
+    Shows the recent ten transaction of the user
+    """
+    clear()
+    print(heading_art.logo)
+    print("\nLOADING DATA....\n\n")
+    sleep(3)
+    # Calls the  worksheet with the new user
+    user_sheet = SHEET.worksheet(username)
+    # Gets all the information in the sheet
+    full_data_arr = user_sheet.get_all_values()
+    # Slices the required data
+    acc_holder_data = full_data_arr[-10:]
+    # Prints the data as a table
+    print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw', 'Balance', 'PIN status']))
+    sleep(3)
+    while True:
+        answer = input("\n\n                          Enter 0 to go back :")
+        if answer == "0":
+            clear()
+            account_welcome_page(username, pin)
+            break
+        
+
 def deposit_amount(username, pin):
     """
     Deposits the given amount into the account after validation
@@ -373,7 +398,8 @@ def account_welcome_page(username, pin):
     print("\n 3.Withdraw Amount")
     print("\n 4.Know your PIN")
     print("\n 5.Change your PIN")
-    print("\n 6.Delete  your Account")
+    print("\n 6.Your recent Transactions")
+    print("\n 7.Delete  your Account")
     print("\n                          Enter 0 to log out...")
     selected_option = input("\n>>")
 
@@ -398,6 +424,9 @@ def account_welcome_page(username, pin):
             change_pin(username)
             break
         elif selected_option == "6":
+            recent_transaction(username, pin)
+            break
+        elif selected_option == "7":
             delete_account(username, pin)
             break
         else:
@@ -584,7 +613,7 @@ def admin_login(username, pin):
                 full_data = SHEET.worksheet(account_un)
                 full_data_arr = full_data.get_all_values()
                 acc_holder_data = full_data_arr[1:]
-                print(tabulate(acc_holder_data, headers=['Username', 'Deposit', 'Withdraw', 'Balance', 'PIN change']))
+                print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw', 'Balance', 'PIN satus']))
                 answer_loop = True
                 while answer_loop:
                     answer = input("\n\nType '0' to go back\n")
