@@ -322,7 +322,7 @@ def deposit_amount(username, pin):
                 gets_name = PersonalDetails.find(username, in_column=1)
                 # Gets the current balance amount in the account
                 gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
-                # The new balance is the sum of old balance and the present 
+                # The new balance is the sum of old balance and the present
                 # deposit amount
                 new_bal = float(gets_balance) + float(deposit)
                 # The complete row of information of the selected user is taken

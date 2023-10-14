@@ -1,0 +1,51 @@
+# PEOPLES BANK
+Peoples Bank is a python based online banking application which allows the user to create an account, login to the account, deposit money, withdraw money, check their account balance, change their PIN number and delete their account if needed.
+This application also allows the admins to login, view all the users having account, view te account details of any particular person and to delete any particular account.
+
+* [Live site](https://peoples-bank-2e284f64d1c0.herokuapp.com/)
+
+* ![Responsive Mockup]()
+
+## Contents
+* [**Project**](#project)
+    * [User Stories](#user-stories)
+        * [First Time Visitor](#first-time-visitor)
+        * [Return Visitor](#return-visitor)
+    * [Site Owner Goals](#site-owner-goals)
+* [**Features**](#features)
+    * [Existing Features](<#existing-features>)
+        * [Login](<#login>)
+        * [Create Account](<#create-account>)
+        * [Account Welcome Page](<#account-home>)
+        * [Deposit Amount](<#Deposit-Amount>)
+        * [Check your Account Balance](<#Check-your- Account-Balance>)
+        
+        * [Withdraw Amount](<#Withdraw-Amount>)
+        * [Know your PIN](<#Know -your-PIN>)
+        * [Change your PIN](<#Change-your-pin>)
+        * [Logout](<#Logout>)
+        * [Delete Account](<#delete-account>)
+        * [Admin Welcome Page](<#admin-welcome-page>)
+        * [Admin: View all users](<#admin-view-all-users>)
+        * [Admin: Delete a User](<#admin-delete-a-user>)
+        * [Check account of a user](<#Check-acc-of-a-user>)
+        * [Log out](<#Logout>)        
+    
+* [**Technologies Used**](<#technologies-used>)
+    * [Languages](<#languages>)
+    * [Libraries](<#libraries>)
+    * [Resources](<#resources>)
+* [**Testing**](<#testing>)
+    * [Bugs](<#bugs>)
+        * [Solved Bugs](<#solved-bugs>)
+        * [Unsolved Bugs](<#unsolved-bugs>)
+    * [Validator Testing](<#validator-testing>)
+    * [Peer Testing](<#peer-testing>)
+* [**Deployment**](<#deployment>)
+    * [Heroku Deployment](<#heroku-deployment>)
+    * [To Fork the Project](<#to-fork-the-project>)
+    * [To Clone the Project](<#to-clone-the-project>)
+* [**Credits**](<#credits>)
+    * [Content](<#content>)
+    * [Technical](<#technical>)
+* [**Acknowledgements**](<#acknowledgements>)
