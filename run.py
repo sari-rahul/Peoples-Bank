@@ -43,6 +43,7 @@ def turn_to_currency(amount):
     """
     Turns a number into a float with 2 decimal places.
     """
+
     currency = round(float(amount), 2)
     return currency
 
@@ -303,42 +304,58 @@ def deposit_amount(username, pin):
     clear()
     print(heading_art.logo)
     print("\n\nPlease enter the amount you want to deposit ")
-    amount = input(">>")
-    deposit = turn_to_currency(amount)
-    print("\nDEPOSITING THE AMOUNT...")
-    sleep(1)
-    # Gets the user's name from the database
-    gets_name = PersonalDetails.find(username, in_column=1)
-    # Gets the current balance amount in the account
-    gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
-    # The new balance is the sum of old balance and the present deposit amount
-    new_bal = float(gets_balance) + float(deposit)
-    # The complete row of information of the selected user is taken
-    row_values = PersonalDetails.row_values(gets_name.row)
-    # The last two values are edited
-    row_values[-1] = new_bal
-    # The present Row is deleted
-    PersonalDetails.delete_rows(gets_name.row)
-    # The new row with updated information is appended
-    PersonalDetails.append_row(row_values)
-    # Calls the  worksheet with the new user
-    user_sheet = SHEET.worksheet(username)
-    date = current_date()
-    withdraw = 0
-    updation = []
-    updation = [date, deposit, withdraw, new_bal]
-    # appends the new data to the worksheet generated
-    user_sheet.append_row(updation)
-    print(f"\n€{deposit} has been deposited!!! ")
-    sleep(2)
-    # Calls the welcome page so that the user can select anothe function
-    account_welcome_page(username, pin)
+    # Amswer loop
+    while True:
+        amount = input(">>")
+        try:
+            deposit = turn_to_currency(amount)
+            if deposit < 0:
+                print("\nNegative values not accepted")
+                sleep(2)
+            elif deposit == 0:
+                print("\nZero value not accepted")
+                sleep(2)
+            else:
+                print("\nDEPOSITING THE AMOUNT...")
+                sleep(1)
+                # Gets the user's name from the database
+                gets_name = PersonalDetails.find(username, in_column=1)
+                # Gets the current balance amount in the account
+                gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
+                # The new balance is the sum of old balance and the present 
+                # deposit amount
+                new_bal = float(gets_balance) + float(deposit)
+                # The complete row of information of the selected user is taken
+                row_values = PersonalDetails.row_values(gets_name.row)
+                # The last two values are edited
+                row_values[-1] = new_bal
+                # The present Row is deleted
+                PersonalDetails.delete_rows(gets_name.row)
+                # The new row with updated information is appended
+                PersonalDetails.append_row(row_values)
+                # Calls the  worksheet with the new user
+                user_sheet = SHEET.worksheet(username)
+                date = current_date()
+                withdraw = 0
+                updation = []
+                updation = [date, deposit, withdraw, new_bal]
+                # appends the new data to the worksheet generated
+                user_sheet.append_row(updation)
+                print(f"\n€{deposit} has been deposited!!! ")
+                sleep(2)
+                break
+        # tells the user entered value is not valid
+        except ValueError:
+            print(f"\nEntered amount value {amount} is not valid")
+            sleep(4)
+
+        # Calls the welcome page so that the user can select another function
+        account_welcome_page(username, pin)
 
 
 def generate_pin():
     """
     Generates a random number between 1000 and 9999
-    which is used as the PIN and returns it
 
     """
     pin = random.randint(1000, 9999)
