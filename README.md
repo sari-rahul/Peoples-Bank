@@ -276,6 +276,113 @@ insert image
 
 The user can log out from the home page by clicking '0'. To keep them safe, a 'Logging out' message will be displayed and they will be taken to the Login page.
 
+#### Admin: Home page
+---
+This website also provides access to admin.The admin can view all account holders username, PIN, last updation date and Current Balance. This is accessible from the login page by entering 'admin' as username and '9053' as PIN.once the admin logs in a menu is displayed with the fillowing content:
+
+* View all account holders
+* Delete an account
+* Check account of a user
+* Log out
+
+insert image
+
+#### Admin :View all account holders
+---
+The Admin can view  a list of all account holders in a tabulated form with username, PIN, last updated date and Balance
+
+insert image
+
+#### Admin :Delete an account
+---
+The admin can delete any user's account.To delete the account ,admin has to enter the username and he will be prompted again 'Are you sure the account should be deleted?'.If 'y' is enterd the account will be deleted otherwise it will go back to the home page.
+
+insert image
+
+#### Admin :Check account of a user
+---
+The admin can check any user's account by entering their username.After entering the username the entire account transaction will be displayed in tabuar form. It includes each transaction with respective date and changes in PIN.
+
+insert image
+
+#### Admin :Log out
+---
+The admin can safely Log out by selecting the respective option in the menu.
+
+[Back to top](<#contents>)
+
+## Technologies Used
+---
+#### Languages used
+- Python is used for the full funtionality of the website.
+
+#### Libraries used
+---
+
+- [gspread](https://docs.gspread.org/en/v3.7.0/api.html) to link up the Google Sheet.
+- [credentials](https://pypi.org/project/credentials/) to link the Google Sheet.
+- [random](https://docs.python.org/3/library/random.html) to generate a 4 digit random PIN.
+- [os](https://www.geeksforgeeks.org/clear-screen-python/) to clear the terminal.
+- [datetime](https://docs.python.org/3/library/datetime.html) to get current date
+- [time](https://www.programiz.com/python-programming/time/sleep) for the sleep function.
+- [Tabulate](https://pypi.org/project/tabulate/) to put data in a table
+- [TAAG](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20) for the logo.
+
+#### Resources
+---
+
+- [Github](<https://github.com/>) to store the code.
+- [Heroku](<https://heroku.com/>)
+- [Codeanywhere](<https://app.codeanywhere.com/) to write the code.
+- [Am I Responsive?](<https://ui.dev/amiresponsive>) for the display image across devices.
+- [Stack Overflow](<https://stackoverflow.com/>) for general troubleshooting.
+- [W3 Schools](<https://www.w3schools.com/>) for general troubleshooting.
+- [MDN Web Docs](<https://developer.mozilla.org/en-US/>) for general troubleshooting.
+- [Google Sheets](<https://www.google.co.uk/sheets/about/>) for the spreadsheet used to store the customer data.
+
+[Back to top](<#contents>)
+
+## Testing
+---
+### Bugs
+#### Solved bugs
+
+- A user could enter empty spaces as username, I needed enter one more validation to correct it.
+- In withdraw amount() the user could enter a non numeric value, later I added an isalpha() as condition to clear it.
+- Repetition of username was possible which lead to multiple sheet with same username.It was removed but adding a condition that makes sure that same username is not present in the database.
+- In withdraw amount() negative value and zero was possible to be entered.Later it was removed by adding two if conditions.
+- Deposit amount() could also take negative numbers and zero value, It was removed by passing if conditions.
+- Deposit amount() had an answer loop wchich did not display the question but only the input area.It was correted by altering the loop.
+- Initially account welcome page() had no way to exit and go back to login page. A condition with '0 to log out' was added to correct it.
+- The recent transaction() was displaying the first 10 transactions initialy. Added [-10:] to slice the last 10 values.
+- Exiting from recent transaction was not possible which was corrected by adding a condition with 'Enter 0 to exit' condition.
+- Float values could not be entered in deposit amount() and withdraw amount().It was corrected by adding turn to currency() which converts the amount to float value with two decimal digits.
+
+#### Unsolved bugs
+- No known Bugs
+
+
+[Back to top](<#contents>)
+
+### Validator Testing
+![PEP8](code pep8)
+
+- No errors were found by PEP8 validator
+- There were only notifications regarding lines too long.As these won't affect the terminal view I decided to leave it to make the code easier to understand.
+
+[Python Validator](https://extendsclass.com/python-tester.html)
+
+- No errors found in python validator.
+
+
+
+
+
+
+
+
+
+
 
 
 

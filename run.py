@@ -333,18 +333,22 @@ def deposit_amount(username, pin):
     """
     clear()
     print(heading_art.logo)
-    print("\n\nPlease enter the amount you want to deposit ")
-    # Amswer loop
+    # Answer loop
     while True:
+        print("\n\nPlease enter the amount you want to deposit ")
         amount = input(">>")
         try:
             deposit = turn_to_currency(amount)
             if deposit < 0:
                 print("\nNegative values not accepted")
                 sleep(2)
+                deposit_amount(username, pin)
+                break
             elif deposit == 0:
                 print("\nZero value not accepted")
                 sleep(2)
+                deposit_amount(username, pin)
+                break
             else:
                 print("\nDEPOSITING THE AMOUNT...")
                 sleep(1)
@@ -373,14 +377,15 @@ def deposit_amount(username, pin):
                 user_sheet.append_row(updation)
                 print(f"\n€{deposit} has been deposited!!! ")
                 sleep(2)
-                break
+                # Calls the welcome page so that the user can select another function
+                account_welcome_page(username, pin)
+                
         # tells the user entered value is not valid
         except ValueError:
             print(f"\nEntered amount value {amount} is not valid")
             sleep(4)
-
-        # Calls the welcome page so that the user can select another function
-        account_welcome_page(username, pin)
+            deposit_amount(username, pin)
+            break
 
 
 def generate_pin():
