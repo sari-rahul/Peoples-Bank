@@ -374,6 +374,37 @@ The admin can safely Log out by selecting the respective option in the menu.
 
 - No errors found in python validator.
 
+### Peer Testing
+
+Apart from myself, this program was tested by the following users for bugs and usability
+- Rahul Mulakkal
+- Ramsankar Adampurath
+
+All of them passed all the tested without any bugs.The following tests were carried out:
+
+| Function                    | Test                                           | Result |
+|-----------------------------|------------------------------------------------|--------|
+|welcome | Enter incorrect value| Error message displayed and asks again to enter value|
+|   | Enter value '1' | The user is asked to enter  their username|
+|   | Enter value '2' | The user is asked to select a username |
+|   |   |   |
+| Login :  Enter Username | Enter invalid username or PIN | Error message displayed and asks again to enter username and PIN |
+|   | Enter invalid username and PIN | Error message displayed and asks again to enter username and PIN |
+|   | Enter incorrect username and correct PIN | Error message displayed and asks again to enter username and PIN |
+|   | Enter correct username and incorrect PIN | Error message displayed and asks again to enter username and PIN |
+|   | Enter correct username and PIN | Loading account... is displayed and the user is taken to account's home page |
+|   |   |   |
+| Account Home page |Entered an invalid input (alphabets,symbols,space,nos. other than the one in menu) | Error message displayed and asks again to enter option |
+|   | Enter '1'| The user is taken to Deposit amount page |
+|   | Enter '2'| The user is taken to Check your account balance page |
+|   | Enter '3'| The user is taken to Check your Withdraw amount page |
+|   | Enter '4'| The user is taken to Check your Know your PIN page |
+|   | Enter '5'| The user is taken to Check your Change your PIN page |
+|   | Enter '6'| The user is taken to Check your Your recent Transactions page |
+|   | Enter '7'| The user is taken to Check your Delete your account page |
+|   | Enter '0'| The user is taken to Check your Logging out page |
+|   |   |   |
+| Create Account | Enter a username below 4 characters| Error message displayed|
 
 
 

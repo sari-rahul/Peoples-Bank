@@ -471,31 +471,31 @@ def create_new_account():
     """
     clear()
     print(heading_art.logo)
-    print("\n\nPLEASE ENTER YOUR USERNAME ")
+    print("\n\nPLEASE SELECT YOUR USERNAME ")
     print("(The username should have 4 to 10 characters)")
     username = input("\n>>").capitalize()
     # compares the user given username with the database and avoids repeatition
     if PersonalDetails.find(username, in_column=1) is not None:
         print(f"{username} username is unavailable .Please try a new username")
         sleep(2)
-        clear()
+        create_new_account()
     # Checks if the username begins with a number
     elif not username[0].isalpha():
         print("Username should not begin with number or space")
         sleep(2)
-        clear()
+        create_new_account()
     # Checks if the username has more than the required number of characters
-    elif len(username) < 3 and len(username) > 11:
+    elif len(username) < 4 or len(username) > 11:
         print("The username should have minimum 4 characters and maximum 10 characters")
         sleep(2)
-        clear()
+        create_new_account()
     # Checks if the username begins with a space
     elif any(char.isspace() for char in username):
         print(f"{username} is invalid, no white spaces are allowed")
         sleep(2)
-        clear()
+        create_new_account()
     # Checks if the username has the required number of characters
-    elif len(username) > 3 and len(username) < 11:
+    elif len(username) > 4 and len(username) < 11:
         print("\nCREATING ACCOUNT.PLEASE WAIT A MINUTE... ")
         sleep(3)
         pin = generate_pin()
@@ -507,7 +507,6 @@ def create_new_account():
         customer_info = [n_cust.username, n_cust.pin, date, balance]
         PersonalDetails.append_row(customer_info)
         generate_new_worksheet(username)
-        permission = False
         print(f"\n{username} IS YOUR USERNAME")
         print(f"\nYOUR PIN IS:{pin}")
         sleep(5)
@@ -656,7 +655,7 @@ def admin_login(username, pin):
 def login_account():
     clear()
     print(heading_art.logo)
-    print("\n\nEnter your name to login:")
+    print("\n\nEnter your username to login:")
     entered_username = input(">>").capitalize()
     print("\nEnter your PIN :")
     entered_pin = input(">>")
@@ -717,3 +716,4 @@ def main():
 
 
 main()
+
