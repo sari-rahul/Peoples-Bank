@@ -410,6 +410,23 @@ All of them passed all the tested without any bugs.The following tests were carr
 |    | Enter a username beginning with a non letter  |  Error message displayed and user can try again |
 |    | Enter '0'                                     | The user is asked for the username to login and the login function is run. |
 |    | A valid username is entered                    | The users username and PIN is displayed, then they are taken to the login screen. |
+|   |   |   |
+| Deposit Amount | Enter a negative number | The error message is displayed and the user can try again.|
+|   | Enter Zero number | The error message is displayed and the user can try again.|
+|   | Enter a number with more then two decimals | The amount is rounded to two decimal positions and deposited. |
+|   | Enter a non-integer value | The error message is displayed and the user can try again.|
+|   | Enter a correct value | A confirmation message is displayed and then the person goes back to home page.|
+|   |   |   |
+| Check your Account Balance | The current balnce is displayed and then the user is taken back to home page|
+|   |   |   |
+| Withdraw Amount - The user is prompted to enter the amount they want to deposit| Enter a negative  number|'INPUT INVALID' messsage is displayed and the user can try again|
+|   | Enter Zero number| Enter a negative  number|'INPUT INVALID' messsage is displayed and the user can try again|
+|   | Enter non integer value|' Please enter valid input' message is displayed and the user can try again|
+|   | Enter 'e' | The user exits the current screen and goes back to the home page|
+|   | Enter a value greater than the balance mount in account|'INSUFFICIENT BALANCE' message displayed and the user can try again|
+|   | Enter a correct value |'WITHDRWAING THE AMOUNT FROM ACCOUNT, AMOUNT SUCESSFULLY WITHDRWAN, YOUR BALANCE IS : BALANCE AMOUNT' is displayed and the user goes back to home page|
+|   |   |   |
+ 
 
 
 
