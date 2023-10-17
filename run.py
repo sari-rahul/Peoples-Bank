@@ -146,7 +146,7 @@ def withdraw_amount(username, pin):
     # Checks if the value is 'e' and exits the function
     if amount == "e":
         logging_out()
-        account_welcome_page(username, pin)
+        create_new_account()
     else:
         if not amount.isalpha():
             withdraw = turn_to_currency(amount)
@@ -189,7 +189,7 @@ def withdraw_amount(username, pin):
                 print(f"\nYOUR CURRENT ACCOUNT BALANCE IS :€{new_bal}")
                 sleep(5)
                 account_welcome_page(username, pin)
-        else: 
+        else:
             print("\nPlease Enter a valid Input..")
             sleep(2)
             withdraw_amount(username, pin)

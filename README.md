@@ -404,12 +404,12 @@ All of them passed all the tested without any bugs.The following tests were carr
 |   | Enter '7'| The user is taken to Check your Delete your account page |
 |   | Enter '0'| The user is taken to Check your Logging out page |
 |   |   |   |
-| Create Account | Enter a username below 4 characters| Error message displayed|
-|   |   |Enter a username over 10 characters            | '{username} is not valid. Select a username between 5 & 15 characters." is displayed to the terminal and the user can try again. |
-|                             | Enter username containing whitespace           | '{username} is not valid, contains whitespace." is displayed to the terminal and the user can try again. |
-|                             | Enter a username beginning with a non letter   | '{username} is not valid. First character must be a letter.' Is displayed and the user is given another chance to enter a username. |
-|                             | Enter '1'                                      | The user is asked for the username to login and the login function is run. |
-|                             | A valid username is entered                    | The users username and PIN is displayed, then they are taken to the login screen once they press enter. |
+| Create Account | Enter a username below 4 characters| Error message displayed and user can try again|
+|    |Enter a username over 10 characters            | Error message displayed and user can try again  |
+|    |Enter username containing whitespace           | Error message displayed and user can try again |
+|    | Enter a username beginning with a non letter  |  Error message displayed and user can try again |
+|    | Enter '0'                                     | The user is asked for the username to login and the login function is run. |
+|    | A valid username is entered                    | The users username and PIN is displayed, then they are taken to the login screen. |
 
 
 
