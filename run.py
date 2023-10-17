@@ -473,12 +473,19 @@ def create_new_account():
     print(heading_art.logo)
     print("\n\nPLEASE SELECT YOUR USERNAME ")
     print("(The username should have 4 to 10 characters)")
+    print("\n                                       Press 0 to exit..")
     username = input("\n>>").capitalize()
     # compares the user given username with the database and avoids repeatition
     if PersonalDetails.find(username, in_column=1) is not None:
         print(f"{username} username is unavailable .Please try a new username")
         sleep(2)
         create_new_account()
+    # Allows the user to exit to welcome screen
+    elif username == "0":
+        sleep(1)
+        logging_out()
+        sleep(3)
+        welcome() 
     # Checks if the username begins with a number
     elif not username[0].isalpha():
         print("Username should not begin with number or space")
