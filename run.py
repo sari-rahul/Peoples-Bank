@@ -58,7 +58,7 @@ def clear():
 
 def check_pin(pin):
     """
-    Compares the given pin with the pin inthe database
+    Compares the given pin with the pin in the database
     """
     print("\n\nPLEASE ENTER YOUR PIN....")
     entered_pin = input(">>")
@@ -406,7 +406,9 @@ def generate_pin():
 
 
 def account_welcome_page(username, pin):
-    # Displays the various function that can be done by the user
+    """
+     Displays the various function that can be done by the user 
+    """
     clear()
     print(heading_art.logo)
     print(f"\n\nHello {username}!!!")
@@ -529,6 +531,9 @@ def create_new_account():
 
 
 def logging_out():
+    """
+    Displays the logging out screen 
+    """
     clear()
     print(heading_art.logo)
     print("\nLOGGING OUT...")
@@ -537,6 +542,9 @@ def logging_out():
 
 
 def admin_delete_acc(user_to_delete, pin):
+    """
+    Allows admin to delete the entered users account
+    """
     # Finds the username in the database
     get_name = PersonalDetails.find(user_to_delete, in_column=1)
     print("\n\nAre you sure the account should be deleted")
@@ -619,7 +627,7 @@ def admin_user_acc(username, pin):
         sleep(2)
         admin_user_acc(username, pin)
     
-    
+  
 def admin_login(username, pin):
     """
     Opens a panel for admin to view all users, delete a user and to logout.
@@ -681,6 +689,9 @@ def admin_login(username, pin):
 
 
 def login_account():
+    """
+    Allows users to login into their account.
+    """
     clear()
     print(heading_art.logo)
     print("\n\nEnter your username to login:")
