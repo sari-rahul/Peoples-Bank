@@ -214,6 +214,36 @@ def check_balance(username, pin):
     account_welcome_page(username, pin)
 
 
+def database_pin_change(username, pin):
+    # Searches for the username in database
+    get_name = PersonalDetails.find(username, in_column=1)
+    # Gets the complete row of the username
+    get_row = PersonalDetails.row_values(get_name.row)           
+    # Changes the pin to the new user selected number
+    get_row[1] = pin
+    # The present Row is deleted
+    PersonalDetails.delete_rows(get_name.row)
+    # The new row with updated information is appended
+    PersonalDetails.append_row(get_row)
+    # Calls the  worksheet with the new user
+    user_sheet = SHEET.worksheet(username)
+    # Generates the current date
+    date = current_date()
+    # Creates an empty array
+    pin_change = []
+    # Date and pin change information is entered
+    pin_change = [date, "-", "-", "-", "PIN changed"]
+    # appends the new data to the worksheet generated
+    user_sheet.append_row(pin_change)
+    print("\nYour PIN number has been changed.")
+    sleep(3)
+    print(f"\nYOUR NEW PIN NUMBER IS {pin}")
+    sleep(3)
+    # Calls the welcome page so that the user can select another
+    # function
+    account_welcome_page(username, pin)           
+
+
 def change_pin(username):
     """
     Changes the PIN number to a new PIN or user selected PIN
@@ -226,63 +256,25 @@ def change_pin(username):
     print("\n2.Get a new PIN ")
     users_choice = input(">>")
     if users_choice == "1":
-        print("\n\nPlease enter a four-digit PIN number")
-        users_pin = input(">>")
-        # Searches for the username in database
-        get_name = PersonalDetails.find(username, in_column=1)
-        # Gets the complete row of the username
-        get_row = PersonalDetails.row_values(get_name.row)
-        # Changes the pin to the new user selected number
-        get_row[1] = users_pin
-        # The present Row is deleted
-        PersonalDetails.delete_rows(get_name.row)
-        # The new row with updated information is appended
-        PersonalDetails.append_row(get_row)
-        # Calls the  worksheet with the new user
-        user_sheet = SHEET.worksheet(username)
-        # Generates the current date
-        date = current_date()
-        # Creates an empty array
-        pin_change = []
-        # Date and pin change information is entered
-        pin_change = [date, "-", "-", "-", "PIN changed"]
-        # appends the new data to the worksheet generated
-        user_sheet.append_row(pin_change)
-        print("\nYour PIN number has been changed.")
-        sleep(3)
-        # Calls the welcome page so that the user can select anothe function
-        account_welcome_page(username, users_pin)
-
+        while True:
+            print("\n\nPlease enter a four-digit PIN number")
+            users_pin = input(">>")
+            if not users_pin.isalpha():
+                if len(users_pin) != 4:
+                    print("\nINVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
+                else:
+                    database_pin_change(username, users_pin)
+                    break
+            else:
+                print("\nINVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
     elif users_choice == "2":
         print("\nGenerating a new PIN for your account.")
         # generates new pin
         new_pin = generate_pin()
-        print(f"\nYOUR NEW PIN NUMBER IS {new_pin}")
-        # Searches for the username in database
-        get_name = PersonalDetails.find(username, in_column=1)
-        # Gets the complete row of the username
-        get_row = PersonalDetails.row_values(get_name.row)
-        # Changes the pin to the new user selected number
-        get_row[1] = new_pin
-        # The present Row is deleted
-        PersonalDetails.delete_rows(get_name.row)
-        # The new row with updated information is appended
-        PersonalDetails.append_row(get_row)
-        # The username corresponding worksheet is taken
-        user_sheet = SHEET.worksheet(username)
-        # Generates the current date
-        date = current_date()
-        # Creates an empty array
-        pin_change = []
-        # Date and pin change information is entered
-        pin_change = [date, "-", "-", "-", "PIN changed"]
-        # Appends the new data to the worksheet generated
-        user_sheet.append_row(pin_change)
-        print("\nYour PIN number has been changed.")
-        sleep(3)
-        # Calls the welcome page so that the user can select anothe function
-        account_welcome_page(username, new_pin)
+        database_pin_change(username, new_pin)
     else:
+        print("\nINPUT INVALID... TRY AGAIN..")
+        sleep(2)
         change_pin(username)
 
 
@@ -377,7 +369,8 @@ def deposit_amount(username, pin):
                 user_sheet.append_row(updation)
                 print(f"\n€{deposit} has been deposited!!! ")
                 sleep(2)
-                # Calls the welcome page so that the user can select another function
+                # Calls the welcome page so that the user can select another 
+                # function
                 account_welcome_page(username, pin)
                 
         # tells the user entered value is not valid
@@ -723,4 +716,5 @@ def main():
 
 
 main()
+
 
