@@ -7,6 +7,7 @@ This application also allows the admins to login, view all the users having acco
 * ![Responsive Mockup]()
 
 ## Contents
+---
 * [**Project**](#project)
     * [User Stories](#user-stories)
         * [First Time User](#first-time-user)
@@ -55,6 +56,7 @@ This application also allows the admins to login, view all the users having acco
 * [**Acknowledgements**](<#acknowledgements>)
 
 ## Project
+---
 ### User Stories
 #### First Time User
 A first time user can :
@@ -443,7 +445,80 @@ All of them passed all the tested without any bugs.The following tests were carr
 | Delete  your account| Enter 'n' or 'N' |'GOING BACK TO ACCOUNT' message displayed and user goes back to account home page|
 |   | Enter 'y' or 'Y'| The user is asked to enter their PIN|
 |Delete account : entering PIN | Enter a wrong PIN | 'PIN INCORRECT' message is displayed and user is taken back to home page|
-|   | Enter correct PIN |'DELETING YOUR ACCOUNT;ACCOUNT DELETED SUCCESSFULLY' message is displayed and then user is taken back to the login page|
+|   | Enter correct PIN |'DELETING YOUR ACCOUNT, ACCOUNT DELETED SUCCESSFULLY' message is displayed and then user is taken back to the login page|
+|  |   |   T|
+|   |   |   |
+|ADMIN PANEL| Enter '1' | All the users data with their username, PIN, last updation date and current balance is displayed|
+|View all account holders| enter any value other than '0' to exit| The user will be asked to enter '0' to exit|
+|ADMIN PANEL| Enter '2' | The admin will be asked to enter the username of the account to be deleted|the admin will be asked to enter y/n to confirm|
+|Admin delete a user :invalid username | Enter an invalid username|'User not found 'message will be displayed and admin goes back to admin panel|
+|Admin delete a user confirmation | Enter 'y' or 'Y'|'ACCOUNT DELETED SUCCESSFULLY'message is displayed and admin goes back to admin panel|
+|   |Enter 'n' or 'N'|'RETURNING BACK' message is displayed and the admin goes back to admin panel|
+|ADMIN PANEL|Enter '3'| Admin will be asked to enter the username of the account he wants to check|
+|Admin checks account of a user| Enter invalid username| 'User not found ' message displayed and admin can enter a username again|
+|   | Enter valid username|he complete transaction details of the entered account is displayed in tabular form|
+|Exit from transaction details screen | Enter any value other than '0'| Admin is asked to enter '0' to exit again|
+|ADMIN PANEL|Enter '4' | The logging out screen is displayed and the admin goes back to login screen. |
+
+[Back to top](<#contents>)
+
+## Deployment
+---
+Git and GitHub were used for version control. As Python is a backend language and can't be displayed with GitHub Heroku was used for the live preview.
+
+### Heroku Deployment
+1. Login to Heroku
+2. Click 'New' in the top right and 'Create new app'.
+3. Enter a unique application name, select your region and click 'Create app'.
+4. Click the 'settings' tab 
+5. Under 'Config Vars' click 'Reveal Config Vars'
+6. Add the JSPN CREDS file
+7. Add PORT 8000
+8. Add 'heroku/python' and 'heroku/node.js' to the 'Buildpacks'
+9. Click the 'Deploy' tab.
+10. In the 'Deployment method' section select 'GitHub'
+11. Search for the repo name and click 'connect'
+12. Under 'Automatic deploys' click 'Enable Automatic Deploys'
+
+### To Fork the Project
+To make a copy of the GitHub Repository you can fork a copy to edit it without changing the root file. This can then be used to update the original repository. To fork take the following steps:
+1. Login to [GitHub](https://github.com/)
+2. Go to the repository [sari-rahul-Peoples-Bank](https://github.com/sari-rahul/Peoples-Bank)
+3. On the top right-hand side of the page click the `fork` button and save a copy of the original repository to your GitHub account.
+
+### To Clone the Project
+To clone the project on GitHub:
+1. Click the `code` button  
+2. Click the `local` tab
+3. Under HTTPS click the clipboard icon to copy the URL
+4. In your IDE of choice, open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made
+6. Type `git clone` and then paste the URL copied from GitHub
+7. Press enter and the local clone will be created
+![Clone walkthrough image]()
+
+[Back to top](<#contents>)
+
+
+## Credits
+---
+
+### Content
+
+All content was created by Sarimol Adampurath.
+The template for the readme was supplied by Code Institute with additional changes suggested by my mentor Jubrile Akolade.
+
+### Technical
+
+The Code Institute walkthrough project Love Sandwiches was used as insporation for the project and how to link up google sheets with Python.
+
+## Acknowledgements
+---
+
+- Python w3schools for helping with syntax doubts.
+- Stack overflow for continues trouble shooting.
+- The Code Institute slack channel for inspiration on features to add.
+- Rahul Mulakkal and Ramsankar Admpurath for usability testing and moral support.
 
 
 
