@@ -221,7 +221,7 @@ def database_pin_change(username, pin):
     # Searches for the username in database
     get_name = PersonalDetails.find(username, in_column=1)
     # Gets the complete row of the username
-    get_row = PersonalDetails.row_values(get_name.row)           
+    get_row = PersonalDetails.row_values(get_name.row)
     # Changes the pin to the new user selected number
     get_row[1] = pin
     # The present Row is deleted
@@ -243,7 +243,7 @@ def database_pin_change(username, pin):
     sleep(4)
     # Calls the welcome page so that the user can select another
     # function
-    account_welcome_page(username, pin)           
+    account_welcome_page(username, pin)
 
 
 def change_pin(username):
@@ -331,7 +331,7 @@ def recent_transaction(username, pin):
             clear()
             account_welcome_page(username, pin)
             break
-      
+
 
 def deposit_amount(username, pin):
     """
@@ -384,10 +384,10 @@ def deposit_amount(username, pin):
                 user_sheet.append_row(updation)
                 print(f"\n€{deposit} has been deposited!!! ")
                 sleep(2)
-                # Calls the welcome page so that the user can select another 
+                # Calls the welcome page so that the user can select another
                 # function
                 account_welcome_page(username, pin)
-                
+
         # tells the user entered value is not valid
         except ValueError:
             print(f"\nEntered amount value {amount} is not valid")
@@ -407,7 +407,7 @@ def generate_pin():
 
 def account_welcome_page(username, pin):
     """
-     Displays the various function that can be done by the user 
+     Displays the various function that can be done by the user
     """
     clear()
     print(heading_art.logo)
@@ -495,7 +495,7 @@ def create_new_account():
         sleep(1)
         logging_out()
         sleep(3)
-        welcome() 
+        welcome()
     # Checks if the username begins with a number
     elif not username[0].isalpha():
         print("Username should not begin with number or space")
@@ -532,7 +532,7 @@ def create_new_account():
 
 def logging_out():
     """
-    Displays the logging out screen 
+    Displays the logging out screen
     """
     clear()
     print(heading_art.logo)
@@ -581,7 +581,7 @@ def view_acc_holders(username, pin):
     full_data = PersonalDetails.get_all_values()
     acc_holder_data = full_data[2:]
     print(tabulate(acc_holder_data, headers=['Username', 'PIN', 'Last updated on', 'Balance']))
-    print("\n                                Press '0' to go back") 
+    print("\n                                Press '0' to go back")
     answer_loop = True
     while answer_loop:
         next_step = input("\n")
@@ -595,7 +595,6 @@ def view_acc_holders(username, pin):
 def admin_user_acc(username, pin):
     """
     Allows the admin to check account of any individual user
-    
     """
     clear()
     print(heading_art.logo)
@@ -621,13 +620,13 @@ def admin_user_acc(username, pin):
                 answer_loop = False
             else:
                 input("\n\nType '0' to go back\n")
-                       
+
     else:
         print("\nUser not found")
         sleep(2)
         admin_user_acc(username, pin)
-    
-  
+
+
 def admin_login(username, pin):
     """
     Opens a panel for admin to view all users, delete a user and to logout.
@@ -669,7 +668,7 @@ def admin_login(username, pin):
         # View the account of user
         elif admin_choice == "3":
             admin_user_acc(username, pin)
-            break    
+            break
         # logging out for admin
         elif admin_choice == "4":
             logging_out()
@@ -755,5 +754,3 @@ def main():
 
 
 main()
-
-
