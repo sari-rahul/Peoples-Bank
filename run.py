@@ -583,6 +583,39 @@ def view_acc_holders(username, pin):
         else:
             print("Press'0' to go back")
 
+
+def admin_user_acc(username, pin):
+    clear()
+    print(heading_art.logo)
+    print("\nEnter the username for the account you want to see.")
+    account_un = input(">>").capitalize()
+    # Searches the username in Database
+    get_name = PersonalDetails.find(account_un, in_column=1)
+    if get_name:
+        clear()
+        print(heading_art.logo)
+        print("\nLOADING DATA.....\n\n")
+        sleep(2)
+        # Finds the user's individual worksheet.
+        full_data = SHEET.worksheet(account_un)
+        full_data_arr = full_data.get_all_values()
+        acc_holder_data = full_data_arr[1:]
+        print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw', 'Balance', 'PIN satus']))
+        answer_loop = True
+        while answer_loop:
+            answer = input("\n\nType '0' to go back\n")
+            if answer == "0":
+                admin_login(username, pin)
+                answer_loop = False
+            else:
+                input("\n\nType '0' to go back\n")
+                break       
+    else:
+        print("\nUser not found")
+        sleep(2)
+        admin_user_acc(username, pin)
+    
+
     
 def admin_login(username, pin):
     """
