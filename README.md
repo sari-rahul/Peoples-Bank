@@ -397,12 +397,12 @@ All of them passed all the tested without any bugs.The following tests were carr
 | Account Home page |Entered an invalid input (alphabets,symbols,space,nos. other than the one in menu) | Error message displayed and asks again to enter option |
 |   | Enter '1'| The user is taken to Deposit amount page |
 |   | Enter '2'| The user is taken to Check your account balance page |
-|   | Enter '3'| The user is taken to Check your Withdraw amount page |
-|   | Enter '4'| The user is taken to Check your Know your PIN page |
-|   | Enter '5'| The user is taken to Check your Change your PIN page |
-|   | Enter '6'| The user is taken to Check your Your recent Transactions page |
-|   | Enter '7'| The user is taken to Check your Delete your account page |
-|   | Enter '0'| The user is taken to Check your Logging out page |
+|   | Enter '3'| The user is taken to Withdraw amount page |
+|   | Enter '4'| The user is taken to Know your PIN page |
+|   | Enter '5'| The user is taken to Change your PIN page |
+|   | Enter '6'| The user is taken to Your recent Transactions page |
+|   | Enter '7'| The user is taken to Delete your account page |
+|   | Enter '0'| The user is taken to Logging out page |
 |   |   |   |
 | Create Account | Enter a username below 4 characters| Error message displayed and user can try again|
 |    |Enter a username over 10 characters            | Error message displayed and user can try again  |
@@ -426,6 +426,19 @@ All of them passed all the tested without any bugs.The following tests were carr
 |   | Enter a value greater than the balance mount in account|'INSUFFICIENT BALANCE' message displayed and the user can try again|
 |   | Enter a correct value |'WITHDRWAING THE AMOUNT FROM ACCOUNT, AMOUNT SUCESSFULLY WITHDRWAN, YOUR BALANCE IS : BALANCE AMOUNT' is displayed and the user goes back to home page|
 |   |   |   |
+|Know your PIN |The user selects the option for knowing the PIN |The PIN is displayed and the user goes back to the Home page|
+|   |   |   |
+|Change your PIN | Enter an invalid number |'INPUT INVALID'message displayed and user can try again|
+|   | Enter a non integer value |'INPUT INVALID'message displayed and user can try again|
+|   | Enter space only | 'INPUT INVALID'message displayed and user can try again|
+|   | Enter '1'|The user is asked to enter a four digit number of their choice| 'Your PIN has been changed','Your PIN number is :pin number' message is displayed as a confirmation|
+|Enter a PIN of your choice | Enter non interger values|'INVALID INPUT ... PLEASE ENTER A FOUR DIGIT NUMBER' message is displayed and the user can try again|
+|   | Enter negative values |'INVALID INPUT ... PLEASE ENTER A FOUR DIGIT NUMBER' message is displayed and the user can try again|
+|   | Enter values having more than 4 digits|'INVALID INPUT ... PLEASE ENTER A FOUR DIGIT NUMBER' message is displayed and the user can try again|
+|   | Enter '2'| The user selects the option to get a new PIN | 'Generating a new PIN for your account,Your PIN number has been changed,YOUR NEW PIN NUMBER IS : new pin' message is displayed|
+
+
+
  
 
 
