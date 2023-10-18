@@ -585,6 +585,10 @@ def view_acc_holders(username, pin):
 
 
 def admin_user_acc(username, pin):
+    """
+    Allows the admin to check account of any individual user
+    
+    """
     clear()
     print(heading_art.logo)
     print("\nEnter the username for the account you want to see.")
@@ -609,13 +613,12 @@ def admin_user_acc(username, pin):
                 answer_loop = False
             else:
                 input("\n\nType '0' to go back\n")
-                break       
+                       
     else:
         print("\nUser not found")
         sleep(2)
         admin_user_acc(username, pin)
     
-
     
 def admin_login(username, pin):
     """
