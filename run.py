@@ -261,13 +261,16 @@ def change_pin(username):
         while True:
             print("\n\nPlease enter a four-digit PIN number")
             users_pin = input(">>")
+            # checks if the input is a number
             if users_pin.isdigit():
+                # checks if the input has only 4 digits
                 if len(users_pin) != 4:
                     print("\nINVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
                     sleep(3)
                     clear()
                     print(heading_art.logo)
                 else:
+                    # function to add the pin to database
                     database_pin_change(username, users_pin)
                     break
             else:
@@ -279,6 +282,7 @@ def change_pin(username):
         print("\nGenerating a new PIN for your account.")
         # generates new pin
         new_pin = generate_pin()
+        # function to add the pin to database
         database_pin_change(username, new_pin)
     else:
         print("\nINPUT INVALID... TRY AGAIN..")
