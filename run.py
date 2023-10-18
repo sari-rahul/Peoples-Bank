@@ -331,7 +331,7 @@ def recent_transaction(username, pin):
             clear()
             account_welcome_page(username, pin)
             break
-        
+      
 
 def deposit_amount(username, pin):
     """
@@ -573,10 +573,10 @@ def view_acc_holders(username, pin):
     full_data = PersonalDetails.get_all_values()
     acc_holder_data = full_data[2:]
     print(tabulate(acc_holder_data, headers=['Username', 'PIN', 'Last updated on', 'Balance']))
-    print("\n                                Press '0' to go back")
-    next_step = input("\n")
+    print("\n                                Press '0' to go back") 
     answer_loop = True
     while answer_loop:
+        next_step = input("\n")
         if next_step == "0":
             admin_login(username, pin)
             answer_loop = False
@@ -620,7 +620,8 @@ def admin_login(username, pin):
                 break
             else:
                 print("\nUser not found")
-                break
+                sleep(3)
+                admin_login(username, pin)
         # View the account of user
         elif admin_choice == "3":
             clear()

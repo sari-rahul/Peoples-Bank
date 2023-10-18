@@ -436,6 +436,15 @@ All of them passed all the tested without any bugs.The following tests were carr
 |   | Enter negative values |'INVALID INPUT ... PLEASE ENTER A FOUR DIGIT NUMBER' message is displayed and the user can try again|
 |   | Enter values having more than 4 digits|'INVALID INPUT ... PLEASE ENTER A FOUR DIGIT NUMBER' message is displayed and the user can try again|
 |   | Enter '2'| The user selects the option to get a new PIN | 'Generating a new PIN for your account,Your PIN number has been changed,YOUR NEW PIN NUMBER IS : new pin' message is displayed|
+|   |   |   |   
+|Your recent Transactions | The user selects the option to get recent transactions| The last 10 transactions are displayed in tabular form|
+|   | Enter any value other than '0'|The user is again requested  'Enter '0' to go back'|
+|   |   |   |
+| Delete  your account| Enter 'n' or 'N' |'GOING BACK TO ACCOUNT' message displayed and user goes back to account home page|
+|   | Enter 'y' or 'Y'| The user is asked to enter their PIN|
+|Delete account : entering PIN | Enter a wrong PIN | 'PIN INCORRECT' message is displayed and user is taken back to home page|
+|   | Enter correct PIN |'DELETING YOUR ACCOUNT;ACCOUNT DELETED SUCCESSFULLY' message is displayed and then user is taken back to the login page|
+
 
 
 
