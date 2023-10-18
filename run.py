@@ -215,6 +215,9 @@ def check_balance(username, pin):
 
 
 def database_pin_change(username, pin):
+    """
+    Adds the new pin into the database
+    """
     # Searches for the username in database
     get_name = PersonalDetails.find(username, in_column=1)
     # Gets the complete row of the username
@@ -236,9 +239,8 @@ def database_pin_change(username, pin):
     # appends the new data to the worksheet generated
     user_sheet.append_row(pin_change)
     print("\nYour PIN number has been changed.")
-    sleep(3)
     print(f"\nYOUR NEW PIN NUMBER IS {pin}")
-    sleep(3)
+    sleep(4)
     # Calls the welcome page so that the user can select another
     # function
     account_welcome_page(username, pin)           
@@ -259,14 +261,20 @@ def change_pin(username):
         while True:
             print("\n\nPlease enter a four-digit PIN number")
             users_pin = input(">>")
-            if not users_pin.isalpha():
+            if users_pin.isdigit():
                 if len(users_pin) != 4:
                     print("\nINVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
+                    sleep(3)
+                    clear()
+                    print(heading_art.logo)
                 else:
                     database_pin_change(username, users_pin)
                     break
             else:
                 print("\nINVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
+                sleep(3)
+                clear()
+                print(heading_art.logo)
     elif users_choice == "2":
         print("\nGenerating a new PIN for your account.")
         # generates new pin
