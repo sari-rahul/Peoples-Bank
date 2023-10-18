@@ -318,7 +318,10 @@ def recent_transaction(username, pin):
     # Gets all the information in the sheet
     full_data_arr = user_sheet.get_all_values()
     # Slices the required data
-    acc_holder_data = full_data_arr[-10:]
+    if len(full_data_arr) > 10:
+        acc_holder_data = full_data_arr[-10:]
+    else:
+        acc_holder_data = full_data_arr[1:]
     # Prints the data as a table
     print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw', 'Balance', 'PIN status']))
     sleep(3)
