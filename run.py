@@ -56,6 +56,13 @@ def clear():
     os.system('clear')
 
 
+def print_logo():
+    """
+    Prints the logo
+    """
+    print(heading_art.logo)
+
+
 def check_pin(pin):
     """
     Compares the given pin with the pin in the database
@@ -86,7 +93,7 @@ def delete_account(username, pin):
 
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\n\nAre you sure you want to delete the account")
     print("press Y or N")
     # Begins a loop to get the answer again in case of incorrect answer
@@ -139,7 +146,7 @@ def withdraw_amount(username, pin):
 
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\n\nPlease enter the amount you want to withdraw ")
     print("Press 'e' to exit")
     amount = input("€")
@@ -201,7 +208,7 @@ def check_balance(username, pin):
 
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\nCHECKING BALANCE.....")
     sleep(2)
     # Gets the user's name from the database
@@ -252,7 +259,7 @@ def change_pin(username):
 
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\n\nSelect any one option:")
     print("\n\n1.Enter a PIN of your choice")
     print("\n2.Get a new PIN ")
@@ -310,7 +317,7 @@ def recent_transaction(username, pin):
     Shows the recent ten transaction of the user
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\nLOADING DATA....\n\n")
     sleep(3)
     # Calls the  worksheet with the new user
@@ -339,7 +346,7 @@ def deposit_amount(username, pin):
 
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     # Answer loop
     while True:
         print("\n\nPlease enter the amount you want to deposit ")
@@ -410,7 +417,7 @@ def account_welcome_page(username, pin):
      Displays the various function that can be done by the user
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print(f"\n\nHello {username}!!!")
     print("\nSELECT THE SERVICE YOU WANT TO CHOOSE..")
     print("\n 1.Deposit Amount ")
@@ -480,7 +487,7 @@ def create_new_account():
 
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\n\nPLEASE SELECT YOUR USERNAME ")
     print("(The username should have 4 to 10 characters)")
     print("\n                                       Press 0 to exit..")
@@ -535,7 +542,7 @@ def logging_out():
     Displays the logging out screen
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\nLOGGING OUT...")
     sleep(3)
     welcome()
@@ -575,7 +582,7 @@ def view_acc_holders(username, pin):
     updation date and balance.
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\nLOADING DATA.....\n\n")
     sleep(2)
     full_data = PersonalDetails.get_all_values()
@@ -597,7 +604,7 @@ def admin_user_acc(username, pin):
     Allows the admin to check account of any individual user
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\nEnter the username for the account you want to see.")
     account_un = input(">>").capitalize()
     # Searches the username in Database
@@ -632,7 +639,7 @@ def admin_login(username, pin):
     Opens a panel for admin to view all users, delete a user and to logout.
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\n\nWELCOME ADMIN")
     print("\n1. View all account holders")
     print("\n2. Delete an account")
@@ -692,7 +699,7 @@ def login_account():
     Allows users to login into their account.
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     print("\n\nEnter your username to login:")
     entered_username = input(">>").capitalize()
     print("\nEnter your PIN :")
@@ -730,7 +737,7 @@ def welcome():
 
     """
     clear()
-    print(heading_art.logo)
+    print_logo()
     permission = True
     while permission:
         print("\n\nWELCOME TO PEOPLES ONLINE BANKING SERVICES")
