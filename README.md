@@ -4,7 +4,7 @@ This application also allows the admins to login, view all the users having acco
 
 * [Live site](https://peoples-bank-2e284f64d1c0.herokuapp.com/)
 
-* ![Responsive Mockup]()
+ ![Responsive Mockup](assets/amiresponsive.png)
 
 ## Contents
 ---
@@ -135,7 +135,7 @@ Google sheets were used to store and access user data.There are two types of goo
 
 The bank's logo is displayed on each page and ascii atr generator was used for this.
 
-![Logo]()
+![Logo](assets/logopp3.png)
 
 * Tables
 
@@ -152,7 +152,7 @@ On entering into the website the bank's logo is displayed and the user is given 
 1. Login
 2. Create a new account
 
-insert image
+![landing page](assets/intropage.png)
 
 #### Create a new account
 
@@ -171,7 +171,7 @@ After validating the username, the PIN is automatically generated and a workshee
 - Balance
 - PIN status.
 The username and PIN is displayed on the screen.
-
+![]()
 
 #### Login
 
@@ -185,23 +185,23 @@ If they are found correct, the user is taken to the home page of their account.
 
 The home page contains the following options:
     
-            0: Log out
+0: Log out
 
-            1:Deposit Amount
+1:Deposit Amount
 
-            2:Check your Balance
+2:Check your Balance
 
-            3:Withdraw amount
+3:Withdraw amount
 
-            4:Know your PIN
+4:Know your PIN
 
-            5:Change your PIN
+5:Change your PIN
 
-            6:Your recent transactions
+6:Your recent transactions
 
-            7:Delete your account
+7:Delete your account
 
-insert image
+![Account homepage](assets/accounthome.png)
 
 #### Deposit Amount
 ---
@@ -216,14 +216,14 @@ An appropriate error message will be displayed, if the user enters:
 
 If the user enters float values of more than two decimal numbers, it will be rounded to two digits before entering the database.
 
-insert image
+![Deposit amount page](assets/depositamountpage.png)
 
 #### Check your Balance
 ---
 
 The user can check their account balance here. The current balance will be displayed and then they will be taken back to the home page.
 
-insert image
+![Check your balance page](assets/checkyourbalance.png)
 
 #### Withdraw Amount
 ---
@@ -234,13 +234,13 @@ The user can withdraw thier funds from their account as per need.They will be pr
 - Zero value
 - Greater than their account balance
 
-insert image
+![Withdraw amount page](assets/withdrawamount.png)
 
 #### Know your PIN
 ---
 If the user wants to know their PIN ,they can check it here,as it is needed to delete their account.
 
-insert image
+![Know your pin page](assets/knowyourpin.png)
 
 #### Change Your PIN
 ---
@@ -251,32 +251,41 @@ He will be given two options here:
 1. Enter a PIN of your choice
 2. Get a new PIN
 
+![Change your pin page](assets/changepin.png)
+
 The user can either select a PIN of his choice or can generate a new PIN number as per his comfort.
 A confirmation message will be displayed after the PIN has been changed and the user will be taken back to the home page.
 
+![enter a pin of your choice](assets/pinofyourchoice.png)
+
 The new PIN will be updated in the Worksheet with the details of clients and in the PIN status column in user's individual worksheet will be updated with 'PIN changed'.
 
-insert image
+![Generate a new pin](assets/generatenewpin.png)
+
 
 #### Your recent Transactions
 ---
 The user can check their recent transactions here.
 The last ten transactions with the particular date will be displayed in table format.
 
-insert image
+![Your recent Transactions page](assets/knowyourtransactions.png)
 
 #### Delete your account
 ---
 The user can delete his account, but as it cannot be reversed the user has to confirm it by typing 'y' followed by PIN. 
 
+![Delete your account](assets/deleteyes.png)
+
 If he types 'n', he will be taken back to the home page, else a message will be displayed saying their account has been sucessfully deleted.
 
-insert image
+![Delete your account type no](assets/deleteno.png)
 
 #### Log out
 ---
 
 The user can log out from the home page by clicking '0'. To keep them safe, a 'Logging out' message will be displayed and they will be taken to the Login page.
+
+![logout page](assets/logoutscreen.png)
 
 #### Admin: Home page
 ---
@@ -287,29 +296,31 @@ This website also provides access to admin.The admin can view all account holder
 * Check account of a user
 * Log out
 
-insert image
+![Admin panel](assets/adminpanel.png)
 
 #### Admin :View all account holders
 ---
 The Admin can view  a list of all account holders in a tabulated form with username, PIN, last updated date and Balance
 
-insert image
+![Admin viewing all account holders details](assets/adminviewallusers.png)
 
 #### Admin :Delete an account
 ---
-The admin can delete any user's account.To delete the account ,admin has to enter the username and he will be prompted again 'Are you sure the account should be deleted?'.If 'y' is enterd the account will be deleted otherwise it will go back to the home page.
+The admin can delete any user's account. To delete the account ,admin has to enter the username and he will be prompted again 'Are you sure the account should be deleted?'.If 'y' is enterd the account will be deleted otherwise it will go back to the home page.
 
-insert image
+![Admin Delete account](assets/admindeleteaccount.png)
 
 #### Admin :Check account of a user
 ---
 The admin can check any user's account by entering their username.After entering the username the entire account transaction will be displayed in tabuar form. It includes each transaction with respective date and changes in PIN.
 
-insert image
+![Admin view account of a user](assets/adminaccfullview.png)
 
 #### Admin :Log out
 ---
 The admin can safely Log out by selecting the respective option in the menu.
+
+![Admin log out](assets/logoutscreen.png)
 
 [Back to top](<#contents>)
 
