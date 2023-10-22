@@ -264,18 +264,18 @@ def change_pin(username):
     clear()
     print_logo()
     print("Select any one option:")
-    print("\n\n1.Enter a PIN of your choice")
-    print("\n2.Get a new PIN ")
+    print("1.Enter a PIN of your choice")
+    print("2.Get a new PIN ")
     users_choice = input(">>")
     if users_choice == "1":
         while True:
-            print("\nPlease enter a four-digit PIN number")
+            print("Please enter a four-digit PIN number")
             users_pin = input(">>")
             # checks if the input is a number
             if users_pin.isdigit():
                 # checks if the input has only 4 digits
                 if len(users_pin) != 4:
-                    print("\nINVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
+                    print("INVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
                     sleep(3)
                     clear()
                     print(heading_art.logo)
@@ -284,7 +284,7 @@ def change_pin(username):
                     database_pin_change(username, users_pin)
                     break
             else:
-                print("\nINVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
+                print("INVALID INPUT...PLEASE ENTER A FOUR DIGIT NUMBER")
                 sleep(3)
                 clear()
                 print(heading_art.logo)
@@ -305,6 +305,8 @@ def know_pin(username):
     Shows the secret PIN to the user
 
     """
+    clear()
+    print_logo()
     # Gets the user's name from the database
     gets_name = PersonalDetails.find(username, in_column=1)
     # Gets the PIN
