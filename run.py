@@ -93,6 +93,7 @@ def delete_account(username, pin):
 
     """
     clear()
+    sleep(1)
     print_logo()
     print("\n\nAre you sure you want to delete the account")
     print("press Y or N")
@@ -146,14 +147,18 @@ def withdraw_amount(username, pin):
 
     """
     clear()
+    sleep(1)
     print_logo()
     print("\n\nPlease enter the amount you want to withdraw ")
     print("Press 'e' to exit")
     amount = input("€")
     # Checks if the value is 'e' and exits the function
     if amount == "e":
-        logging_out()
-        create_new_account()
+        account_welcome_page(username, pin)
+    elif amount == " ":
+        print("\nPlease enter a valid input...")
+        sleep(2)
+        withdraw_amount(username, pin)
     else:
         if not amount.isalpha():
             withdraw = turn_to_currency(amount)
@@ -197,7 +202,7 @@ def withdraw_amount(username, pin):
                 sleep(5)
                 account_welcome_page(username, pin)
         else:
-            print("\nPlease Enter a valid Input..")
+            print("\nPlease enter a valid input...")
             sleep(2)
             withdraw_amount(username, pin)
 
@@ -208,6 +213,7 @@ def check_balance(username, pin):
 
     """
     clear()
+    sleep(1)
     print_logo()
     print("\nCHECKING BALANCE.....")
     sleep(2)
@@ -259,6 +265,7 @@ def change_pin(username):
 
     """
     clear()
+    sleep(1)
     print_logo()
     print("\n\nSelect any one option:")
     print("\n\n1.Enter a PIN of your choice")
@@ -317,6 +324,7 @@ def recent_transaction(username, pin):
     Shows the recent ten transaction of the user
     """
     clear()
+    sleep(1)
     print_logo()
     print("\nLOADING DATA....\n\n")
     sleep(3)
@@ -345,10 +353,12 @@ def deposit_amount(username, pin):
     Deposits the given amount into the account after validation
 
     """
-    clear()
-    print_logo()
+    
     # Answer loop
     while True:
+        clear()
+        sleep(1)
+        print_logo()
         print("\n\nPlease enter the amount you want to deposit ")
         amount = input(">>")
         try:
@@ -417,19 +427,17 @@ def account_welcome_page(username, pin):
      Displays the various function that can be done by the user
     """
     clear()
+    sleep(1)
     print_logo()
     print(f"\n\nHello {username}!!!")
     print("\nSELECT THE SERVICE YOU WANT TO CHOOSE..")
-    print("\n 1.Deposit Amount ")
-    print("\n 2.Check your Account Balance")
-    print("\n 3.Withdraw Amount")
-    print("\n 4.Know your PIN")
-    print("\n 5.Change your PIN")
-    print("\n 6.Your recent Transactions")
+    print("\n 1.Deposit Amount              2.Check your Account Balance")
+    print("\n 3.Withdraw Amount             4.Know your PIN")
+    print("\n 5.Change your PIN             6.Your recent Transactions")
     print("\n 7.Delete  your Account")
     print("\n                                       Enter 0 to log out...")
     selected_option = input("\n>>")
-
+    clear()
     option_loop = True
     while option_loop:
         if selected_option == "0":
@@ -487,6 +495,7 @@ def create_new_account():
 
     """
     clear()
+    sleep(1)
     print_logo()
     print("\n\nPLEASE SELECT YOUR USERNAME ")
     print("(The username should have 4 to 10 characters)")
@@ -542,6 +551,7 @@ def logging_out():
     Displays the logging out screen
     """
     clear()
+    sleep(1)
     print_logo()
     print("\nLOGGING OUT...")
     sleep(3)
@@ -582,6 +592,7 @@ def view_acc_holders(username, pin):
     updation date and balance.
     """
     clear()
+    sleep(1)
     print_logo()
     print("\nLOADING DATA.....\n\n")
     sleep(2)
@@ -639,6 +650,7 @@ def admin_login(username, pin):
     Opens a panel for admin to view all users, delete a user and to logout.
     """
     clear()
+    sleep(1)
     print_logo()
     print("\n\nWELCOME ADMIN")
     print("\n1. View all account holders")
@@ -699,6 +711,7 @@ def login_account():
     Allows users to login into their account.
     """
     clear()
+    sleep(1)
     print_logo()
     print("\n\nEnter your username to login:")
     entered_username = input(">>").capitalize()
@@ -737,6 +750,7 @@ def welcome():
 
     """
     clear()
+    sleep(1)
     print_logo()
     permission = True
     while permission:
