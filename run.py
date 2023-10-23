@@ -163,7 +163,8 @@ def withdraw_amount(username, pin):
             # Gets the user's name from the database
             gets_name = PersonalDetails.find(username, in_column=1)
             # Gets the current balance amount in the account
-            gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
+            gets_balance = PersonalDetails.cell(gets_name.row,
+                                                gets_name.col + 3).value
 
             if float(withdraw) > float(gets_balance):
                 print("\nINSUFFICIENT BALANCE...")
@@ -335,7 +336,8 @@ def recent_transaction(username, pin):
     else:
         acc_holder_data = full_data_arr[1:]
     # Prints the data as a table
-    print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw', 'Balance', 'PIN status']))
+    print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw',
+                                                     'Balance', 'PIN status']))
     sleep(3)
     while True:
         answer = input("\n\n                          Enter 0 to go back :")
@@ -377,7 +379,8 @@ def deposit_amount(username, pin):
                 # Gets the user's name from the database
                 gets_name = PersonalDetails.find(username, in_column=1)
                 # Gets the current balance amount in the account
-                gets_balance = PersonalDetails.cell(gets_name.row, gets_name.col + 3).value
+                gets_balance = PersonalDetails.cell(gets_name.row,
+                                                    gets_name.col + 3).value
                 # The new balance is the sum of old balance and the present
                 # deposit amount
                 new_bal = float(gets_balance) + float(deposit)
@@ -476,7 +479,8 @@ def generate_new_worksheet(username):
     # Create the worksheet
     new_sheet = SHEET.add_worksheet(title=username, rows=100, cols=4)
     # Add in heading and starting balance
-    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)', 'PIN status']
+    headings = ['Date', 'Deposit (Euro)', 'Withdraw (Euro)', 'Balance (Euro)',
+                                                             'PIN status']
     date = current_date()
     starting_balance = [date, "0", "0", "0", "PIN generated"]
     new_sheet.append_row(headings)
@@ -510,12 +514,12 @@ def create_new_account():
         welcome()
     # Checks if the username begins with a number
     elif not username[0].isalpha():
-        print("Username should not begin with number or space")
+        print("Username should not begin with number, symbols or space")
         sleep(2)
         create_new_account()
     # Checks if the username has more than the required number of characters
-    elif len(username) < 4 or len(username) > 11:
-        print("The username should have minimum 4 characters and maximum 10 characters")
+    elif len(username) < 5 or len(username) > 10:
+        print("The username should have min.5 characters & max.10 characters")
         sleep(2)
         create_new_account()
     # Checks if the username begins with a space
@@ -592,7 +596,8 @@ def view_acc_holders(username, pin):
     sleep(2)
     full_data = PersonalDetails.get_all_values()
     acc_holder_data = full_data[2:]
-    print(tabulate(acc_holder_data, headers=['Username', 'PIN', 'Last updated on', 'Balance']))
+    print(tabulate(acc_holder_data, headers=['Username', 'PIN',
+                                             'Last updated on', 'Balance']))
     print("\n                                Press '0' to go back")
     answer_loop = True
     while answer_loop:
@@ -623,7 +628,8 @@ def admin_user_acc(username, pin):
         full_data = SHEET.worksheet(account_un)
         full_data_arr = full_data.get_all_values()
         acc_holder_data = full_data_arr[1:]
-        print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw', 'Balance', 'PIN satus']))
+        print(tabulate(acc_holder_data, headers=['Date', 'Deposit', 'Withdraw',
+                                                 'Balance', 'PIN satus']))
         answer_loop = True
         while answer_loop:
             answer = input("\n\nType '0' to go back\n")
@@ -714,7 +720,8 @@ def login_account():
     # If username is present in database
     if stored_names:
         # Gets the pin corresponding to the username
-        stored_pin = PersonalDetails.cell(stored_names.row, stored_names.col + 1).value
+        stored_pin = PersonalDetails.cell(stored_names.row,
+                                          stored_names.col + 1).value
         # ADMIN login
         if entered_username == "Admin" and entered_pin == stored_pin:
             print("\nACCOUNT LOADING....")
