@@ -10,35 +10,37 @@ This application also allows the admins to login, view all the users having acco
 ---
 * [**Project**](#project)
     * [User Stories](#user-stories)
-        * [First Time User](#first-time-user)
-        * [Return User](#return-user)
+        * [First Time Users](#first-time-user)
+        * [Return Users](#return-users)
     * [Site Owner Goals](#site-owner-goals)
 * [**User Experience**](<#user-experience-ux>)
     * [Site Structure](<#site-structure>)
+    * [Flow chart](#flow-chart)
     * [Data Model](<#data-model>)
 
 * [**Features**](#features)
     * [Existing Features](<#existing-features>)
         * [Login](<#login>)
-        * [Create Account](<#create-account>)
-        * [Account Welcome Page](<#account-home>)
-        * [Deposit Amount](<#Deposit-Amount>)
-        * [Check your Account Balance](<#Check-your- Account-Balance>)
+        * [Create a new Account](<#create-a-new-account>)
+        * [Account Home Page](<#1.-account-home-page>)
+        * [Deposit Amount](<#deposit-amount>)
+        * [Check your Account Balance](<#check-your-balance>)
         
-        * [Withdraw Amount](<#Withdraw-Amount>)
-        * [Know your PIN](<#Know -your-PIN>)
-        * [Change your PIN](<#Change-your-pin>)
-        * [Logout](<#Logout>)
-        * [Delete Account](<#delete-account>)
-        * [Admin Welcome Page](<#admin-welcome-page>)
-        * [Admin: View all users](<#admin-view-all-users>)
-        * [Admin: Delete a User](<#admin-delete-a-user>)
-        * [Check account of a user](<#Check-acc-of-a-user>)
-        * [Admin Log out](<#Logout>)        
+        * [Withdraw Amount](<#withdraw-amount>)
+        * [Know your PIN](<#know-your-pin>)
+        * [Change your PIN](<#change-your-pin>)
+        * [Your recent Transactions](<#your-recent-transactions>)
+        * [Delete your Account](<#delete-your-account>)
+        * [Logout](<#log-out>)
+        * [Admin Home Page](<#admin-home-page>)
+        * [Admin: View all account holders](<#admin-view-all-account-holders>)
+        * [Admin: Delete an Account](<#admin-delete-an-account>)
+        * [Admin: Check account of a user](<#admin-check-account-of-a-user>)
+        * [Admin: Log out](<#admin-log-out>)        
     
 * [**Technologies Used**](<#technologies-used>)
-    * [Languages](<#languages>)
-    * [Libraries](<#libraries>)
+    * [Languages](<#languages-used>)
+    * [Libraries](<#libraries-used>)
     * [Resources](<#resources>)
 * [**Testing**](<#testing>)
     * [Bugs](<#bugs>)
@@ -105,6 +107,16 @@ If an admin enters the website the following panel is displayed:
 - Delete an account
 - Check account of a user
 - Log out
+
+#### Flow chart
+This website has to major utilities which are explained using the two flowcharts below:
+
+Flow chart for users:
+![Flowchart for users](assets/flowchart1.png)
+
+Flow chart for Admin:
+![Flowchart for admin](assets/flowchart2.png)
+
 
 #### Data Model
 Google sheets were used to store and access user data.There are two types of google sheets:
@@ -201,7 +213,7 @@ The home page contains the following options:
 
 7:Delete your account
 
-![Account homepage](assets/accounthome.png)
+![Account homepage]()
 
 #### Deposit Amount
 ---
@@ -287,7 +299,7 @@ The user can log out from the home page by clicking '0'. To keep them safe, a 'L
 
 ![logout page](assets/logoutscreen.png)
 
-#### Admin: Home page
+#### Admin Home page
 ---
 This website also provides access to admin.The admin can view all account holders username, PIN, last updation date and Current Balance. This is accessible from the login page by entering 'admin' as username and '9053' as PIN.once the admin logs in a menu is displayed with the fillowing content:
 
@@ -298,25 +310,25 @@ This website also provides access to admin.The admin can view all account holder
 
 ![Admin panel](assets/adminpanel.png)
 
-#### Admin :View all account holders
+#### Admin View All Account Holders
 ---
 The Admin can view  a list of all account holders in a tabulated form with username, PIN, last updated date and Balance
 
 ![Admin viewing all account holders details](assets/adminviewallusers.png)
 
-#### Admin :Delete an account
+#### Admin Delete an Account
 ---
 The admin can delete any user's account. To delete the account ,admin has to enter the username and he will be prompted again 'Are you sure the account should be deleted?'.If 'y' is enterd the account will be deleted otherwise it will go back to the home page.
 
 ![Admin Delete account](assets/admindeleteaccount.png)
 
-#### Admin :Check account of a user
+#### Admin Check Account of a User
 ---
 The admin can check any user's account by entering their username.After entering the username the entire account transaction will be displayed in tabuar form. It includes each transaction with respective date and changes in PIN.
 
 ![Admin view account of a user](assets/adminaccfullview.png)
 
-#### Admin :Log out
+#### Admin Log out
 ---
 The admin can safely Log out by selecting the respective option in the menu.
 
@@ -362,10 +374,10 @@ The admin can safely Log out by selecting the respective option in the menu.
 
 - A user could enter empty spaces as username, I needed enter one more validation to correct it.
 - In withdraw amount() the user could enter a non numeric value, later I added an isalpha() as condition to clear it.
-- Repetition of username was possible which lead to multiple sheet with same username.It was removed but adding a condition that makes sure that same username is not present in the database.
+- Repetition of username was possible which lead to multiple sheet with same username. It was removed but adding a condition that makes sure that same username is not present in the database.
 - In withdraw amount() negative value and zero was possible to be entered.Later it was removed by adding two if conditions.
 - Deposit amount() could also take negative numbers and zero value, It was removed by passing if conditions.
-- Deposit amount() had an answer loop wchich did not display the question but only the input area.It was correted by altering the loop.
+- Deposit amount() had an answer loop wchich did not display the question but only the input area. It was correted by altering the loop.
 - Initially account welcome page() had no way to exit and go back to login page. A condition with '0 to log out' was added to correct it.
 - The recent transaction() was displaying the first 10 transactions initialy. Added [-10:] to slice the last 10 values.
 - Exiting from recent transaction was not possible which was corrected by adding a condition with 'Enter 0 to exit' condition.
@@ -506,7 +518,6 @@ To clone the project on GitHub:
 5. Change the current working directory to the location where you want the cloned directory to be made
 6. Type `git clone` and then paste the URL copied from GitHub
 7. Press enter and the local clone will be created
-![Clone walkthrough image]()
 
 [Back to top](<#contents>)
 
@@ -531,6 +542,8 @@ The Code Institute walkthrough project Love Sandwiches was used as insporation f
 - The Code Institute slack channel for inspiration on features to add.
 - Rahul Mulakkal and Ramsankar Admpurath for usability testing and moral support.
 
+
+[Back to top](<#contents>)
 
 
 
