@@ -753,6 +753,7 @@ def welcome():
     permission = True
     while permission:
         print("WELCOME TO PEOPLES ONLINE BANKING SERVICES")
+        print("\nIf you already have an account, please login.")
         print("What would you like to do..?")
         print("\n 1.Login")
         print("\n 2.Create a new account")
