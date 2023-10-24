@@ -147,7 +147,7 @@ Google sheets were used to store and access user data.There are two types of goo
 
 The bank's logo is displayed on each page and ascii atr generator was used for this.
 
-![Logo](assets/logopp3.png)
+![Logo](assets/banklogo.png)
 
 * Tables
 
@@ -164,7 +164,7 @@ On entering into the website the bank's logo is displayed and the user is given 
 1. Login
 2. Create a new account
 
-![landing page](assets/intropage.png)
+![landing page](assets/bankwelcomepage.png)
 
 #### Create a new account
 
@@ -183,7 +183,7 @@ After validating the username, the PIN is automatically generated and a workshee
 - Balance
 - PIN status.
 The username and PIN is displayed on the screen.
-![]()
+![create new account](assets/create-account-page.png)
 
 #### Login
 
@@ -213,7 +213,7 @@ The home page contains the following options:
 
 7:Delete your account
 
-![Account homepage]()
+![Account homepage](assets/accounthomenew.png)
 
 #### Deposit Amount
 ---
@@ -228,7 +228,7 @@ An appropriate error message will be displayed, if the user enters:
 
 If the user enters float values of more than two decimal numbers, it will be rounded to two digits before entering the database.
 
-![Deposit amount page](assets/depositamountpage.png)
+![Deposit amount page](assets/depositamountpage1.png)
 
 #### Check your Balance
 ---
@@ -246,13 +246,13 @@ The user can withdraw thier funds from their account as per need.They will be pr
 - Zero value
 - Greater than their account balance
 
-![Withdraw amount page](assets/withdrawamount.png)
+![Withdraw amount page](assets/withdrawamountpage.png)
 
 #### Know your PIN
 ---
 If the user wants to know their PIN ,they can check it here,as it is needed to delete their account.
 
-![Know your pin page](assets/knowyourpin.png)
+![Know your pin page](assets/knowyourpinpage.png)
 
 #### Change Your PIN
 ---
@@ -263,16 +263,16 @@ He will be given two options here:
 1. Enter a PIN of your choice
 2. Get a new PIN
 
-![Change your pin page](assets/changepin.png)
+![Change your pin page](assets/changepinpage.png)
 
 The user can either select a PIN of his choice or can generate a new PIN number as per his comfort.
 A confirmation message will be displayed after the PIN has been changed and the user will be taken back to the home page.
 
-![enter a pin of your choice](assets/pinofyourchoice.png)
+![enter a pin of your choice](assets/enterapinofyourchoice.png)
 
 The new PIN will be updated in the Worksheet with the details of clients and in the PIN status column in user's individual worksheet will be updated with 'PIN changed'.
 
-![Generate a new pin](assets/generatenewpin.png)
+![Generate a new pin](assets/generateanewpin.png)
 
 
 #### Your recent Transactions
@@ -280,24 +280,24 @@ The new PIN will be updated in the Worksheet with the details of clients and in 
 The user can check their recent transactions here.
 The last ten transactions with the particular date will be displayed in table format.
 
-![Your recent Transactions page](assets/knowyourtransactions.png)
+![Your recent Transactions page](assets/yourtransactions.png)
 
 #### Delete your account
 ---
 The user can delete his account, but as it cannot be reversed the user has to confirm it by typing 'y' followed by PIN. 
 
-![Delete your account](assets/deleteyes.png)
+![Delete your account](assets/deleteaccountyes.png)
 
 If he types 'n', he will be taken back to the home page, else a message will be displayed saying their account has been sucessfully deleted.
 
-![Delete your account type no](assets/deleteno.png)
+![Delete your account type no](assets/deleteyouraccno.png)
 
 #### Log out
 ---
 
 The user can log out from the home page by clicking '0'. To keep them safe, a 'Logging out' message will be displayed and they will be taken to the Login page.
 
-![logout page](assets/logoutscreen.png)
+![logout page](assets/loggingoutscreen.png)
 
 #### Admin Home page
 ---
@@ -308,7 +308,7 @@ This website also provides access to admin.The admin can view all account holder
 * Check account of a user
 * Log out
 
-![Admin panel](assets/adminpanel.png)
+![Admin panel](assets/adminhomepage.png)
 
 #### Admin View All Account Holders
 ---
@@ -326,13 +326,13 @@ The admin can delete any user's account. To delete the account ,admin has to ent
 ---
 The admin can check any user's account by entering their username.After entering the username the entire account transaction will be displayed in tabuar form. It includes each transaction with respective date and changes in PIN.
 
-![Admin view account of a user](assets/adminaccfullview.png)
+![Admin view account of a user](assets/adminviewusersaccount.png)
 
 #### Admin Log out
 ---
 The admin can safely Log out by selecting the respective option in the menu.
 
-![Admin log out](assets/logoutscreen.png)
+![Admin log out](assets/loggingoutscreen.png)
 
 [Back to top](<#contents>)
 
@@ -390,10 +390,10 @@ The admin can safely Log out by selecting the respective option in the menu.
 [Back to top](<#contents>)
 
 ### Validator Testing
-![PEP8](code pep8)
+![PEP8]()
 
 - No errors were found by PEP8 validator
-- There were only notifications regarding lines too long.As these won't affect the terminal view I decided to leave it to make the code easier to understand.
+
 
 [Python Validator](https://extendsclass.com/python-tester.html)
 
@@ -544,37 +544,4 @@ The Code Institute walkthrough project Love Sandwiches was used as insporation f
 
 
 [Back to top](<#contents>)
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
