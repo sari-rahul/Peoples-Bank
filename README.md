@@ -395,7 +395,7 @@ The admin can safely Log out by selecting the respective option in the menu.
 - No errors were found by PEP8 validator
 
 
-[Python Validator](https://extendsclass.com/python-tester.html)
+![Python Validator](assets/pythonvalidation.png)
 
 - No errors found in python validator.
 
