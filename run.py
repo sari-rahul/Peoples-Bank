@@ -32,6 +32,7 @@ def current_date():
     Generates the current date and converts it to a string and returns it.
 
     """
+    """ This code was taken from stackoverflow """
     # Get the current date
     current_date = datetime.now().date()
     # Converts the current date into a string
@@ -544,7 +545,6 @@ def create_new_account():
         print(f"\nYOUR PIN IS:{pin}")
         sleep(5)
         login_account()
-
 
 def logging_out():
     """
