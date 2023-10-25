@@ -390,7 +390,7 @@ The admin can safely Log out by selecting the respective option in the menu.
 [Back to top](<#contents>)
 
 ### Validator Testing
-![PEP8]()
+![PEP8](assets/pep8_allclear.png)
 
 - No errors were found by PEP8 validator
 
