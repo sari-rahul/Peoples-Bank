@@ -498,7 +498,7 @@ def create_new_account():
     clear()
     print_logo()
     print("PLEASE SELECT YOUR USERNAME ")
-    print("(The username should have 4 to 10 characters)")
+    print("(The username should have 5 to 10 characters)")
     print("\n                                       Press 0 to exit..")
     username = input("\n>>").capitalize()
     # compares the user given username with the database and avoids repeatition
